@@ -28,7 +28,8 @@
         <activity android:name=".ProgressActivity" />
         <activity android:name=".VisualizeActivity" />
         <activity android:name=".ExercisesTutorialActivity" />
-        <activity android:name=".UpdateExerciseOfTodayActivity"></activity>
+        <activity android:name=".UpdateExerciseOfTodayActivity" />
+        <activity android:name=".UpdateProfileActivity"></activity>
     </application>
 
 </manifest>
