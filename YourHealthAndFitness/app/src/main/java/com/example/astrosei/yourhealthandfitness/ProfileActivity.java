@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -24,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView textView_Goal;
     private TextView textView_Gender;
     private TextView textView_Weight;
-    private Button  btn_Edit;
+    private Button btn_Edit;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
