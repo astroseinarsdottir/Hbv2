@@ -46,7 +46,7 @@ public class ExercisesActivity extends AppCompatActivity {
                 Intent intent;
                 switch (item.getItemId()){
                     case R.id.home_id:
-                        // Return to home page
+                        // Return to home pageq
                         intent = new Intent(ExercisesActivity.this, HomePageActivity.class);
                         startActivity(intent);
                         item.setChecked(true);
