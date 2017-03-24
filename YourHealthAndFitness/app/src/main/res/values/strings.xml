@@ -2,6 +2,8 @@
     <string name="app_name">YourHealthAndFitness</string>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
