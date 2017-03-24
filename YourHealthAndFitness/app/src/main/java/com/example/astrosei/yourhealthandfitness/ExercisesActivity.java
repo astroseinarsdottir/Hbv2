@@ -126,7 +126,7 @@ public class ExercisesActivity extends AppCompatActivity {
             TextView name = (TextView)convertView.findViewById(R.id.textView_Name);
 
             date.setText(exerciseDates[position]);
-            name.setText(exersciseNames[position]);
+            name.setText(exerciseNames[position]);
 
             return convertView;
         }
