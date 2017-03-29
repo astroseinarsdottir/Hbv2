@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -82,6 +83,47 @@ public class ExercisesActivity extends AppCompatActivity {
             }
         });
 
+        // Handler for listView, redirect the user to the right program.
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ExercisesActivity.this, ProgramActivity.class);
+                Object objDate;
+                String stringDate= "";
+                // Redirects user to program for the right day chosen.
+                switch (position){
+                    case 0:
+                        objDate = listView.getItemAtPosition(position);
+                        stringDate = objDate.toString();
+
+                        break;
+                    case 1:
+                        objDate = listView.getItemAtPosition(position);
+                        stringDate = objDate.toString();
+
+                        break;
+                    case 2:
+                        objDate = listView.getItemAtPosition(position);
+                        stringDate = objDate.toString();
+
+
+                        break;
+                    case 3:
+                        objDate = listView.getItemAtPosition(position);
+                        stringDate = objDate.toString();
+
+                        break;
+                    case 4:
+                        objDate = listView.getItemAtPosition(position);
+                        stringDate = objDate.toString();
+
+                        break;
+                }
+                intent.putExtra("exerciseDate", stringDate);
+                startActivity(intent);
+            }
+        });
+
     }
     // For the navigation menu.
     @Override
@@ -109,7 +151,7 @@ public class ExercisesActivity extends AppCompatActivity {
 
         @Override
         public Object getItem(int position) {
-            return exerciseNames[position];
+            return exerciseDates[position];
         }
 
         @Override

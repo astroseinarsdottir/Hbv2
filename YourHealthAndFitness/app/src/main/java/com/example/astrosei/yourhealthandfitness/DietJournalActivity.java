@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class DietJournalActivity extends AppCompatActivity {
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHashMap;
 
+    private Button btn_Log;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,17 @@ public class DietJournalActivity extends AppCompatActivity {
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
 
         expandableListView = (ExpandableListView)findViewById(R.id.exListView_Diet);
+
+        btn_Log = (Button)findViewById(R.id.btn_Log);
+
+        // User wants to log his diet.
+        btn_Log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DietJournalActivity.this, LogJournalActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Init our list view
         initListData();
