@@ -98,18 +98,26 @@ public class ProgramActivity extends AppCompatActivity {
 
         TextView name = new TextView(this);
         name.setText("Name");
+        name.setTextSize(20);
+        name.setPadding(20,10,20,10);
         header.addView(name);
 
         TextView set = new TextView(this);
         set.setText("Set");
+        set.setTextSize(20);
+        set.setPadding(20,10,20,10);
         header.addView(set);
 
         TextView reps = new TextView(this);
         reps.setText("Reps");
+        reps.setTextSize(20);
+        reps.setPadding(20,10,20,10);
         header.addView(reps);
 
         TextView weights  = new TextView(this);
         weights.setText("Weight in kg");
+        weights.setTextSize(20);
+        weights.setPadding(20,10,20,10);
         header.addView(weights);
 
         tableLayout.addView(header);
@@ -120,6 +128,7 @@ public class ProgramActivity extends AppCompatActivity {
             TableRow exerciseName = new TableRow(this);
             TextView nameText = new TextView(this);
             nameText.setText("Exercise name");
+            nameText.setPadding(20,10,20,10);
             exerciseName.addView(nameText);
             tableLayout.addView(exerciseName);
 
@@ -130,11 +139,13 @@ public class ProgramActivity extends AppCompatActivity {
                 TextView empty = new TextView(this);
                 empty.setGravity(Gravity.CENTER);
                 empty.setText("");
+                empty.setPadding(0,0,20,0);
                 exercise.addView(empty);
 
                 TextView setNr = new TextView(this);
                 setNr.setGravity(Gravity.CENTER);
                 setNr.setText("set "+i);
+
                 exercise.addView(setNr);
 
                 TextView rep = new TextView(this);
