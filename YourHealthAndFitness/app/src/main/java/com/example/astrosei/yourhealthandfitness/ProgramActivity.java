@@ -3,6 +3,8 @@ package com.example.astrosei.yourhealthandfitness;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.icu.text.DisplayContext;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -99,24 +101,28 @@ public class ProgramActivity extends AppCompatActivity {
         TextView name = new TextView(this);
         name.setText("Name");
         name.setTextSize(20);
+        name.setTypeface(null, Typeface.BOLD);
         name.setPadding(20,10,20,10);
         header.addView(name);
 
         TextView set = new TextView(this);
         set.setText("Set");
         set.setTextSize(20);
+        set.setTypeface(null, Typeface.BOLD);
         set.setPadding(20,10,20,10);
         header.addView(set);
 
         TextView reps = new TextView(this);
         reps.setText("Reps");
         reps.setTextSize(20);
+        reps.setTypeface(null, Typeface.BOLD);
         reps.setPadding(20,10,20,10);
         header.addView(reps);
 
         TextView weights  = new TextView(this);
         weights.setText("Weight in kg");
         weights.setTextSize(20);
+        weights.setTypeface(null,Typeface.BOLD);
         weights.setPadding(20,10,20,10);
         header.addView(weights);
 
