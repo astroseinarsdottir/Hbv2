@@ -95,7 +95,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="Weight in kg"
-        android:inputType="number"/>
+        android:inputType="numberDecimal"/>
 
     <Button
         android:layout_width="fill_parent"
