@@ -1,0 +1,4 @@
+127.0.0.1 - - [30/Mar/2017:13:40:28 +0000] "GET /mobile_login HTTP/1.1" 400 1058 http-bio-8080-exec-1 92
+127.0.0.1 - - [30/Mar/2017:13:41:00 +0000] "GET /mobile_login?un=sol&pw=solsol HTTP/1.1" 200 4 http-bio-8080-exec-3 879
+192.168.122.1 - - [30/Mar/2017:13:45:10 +0000] "GET /mobile_login?un=solvi&pw=mar HTTP/1.1" 200 5 http-bio-8080-exec-5 28
+192.168.122.1 - - [30/Mar/2017:13:45:54 +0000] "GET /mobile_login?un=sol&pw=solsol HTTP/1.1" 200 4 http-bio-8080-exec-6 106

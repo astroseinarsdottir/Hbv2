@@ -1,6 +1,8 @@
 package networker;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -8,77 +10,53 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import comunicator.AppController;
+import com.example.astrosei.yourhealthandfitness.LoginActivity;
 
-/**
- * Created by viktor on 24/03/17.
- */
-
-public class UserNetworker {
+public class UserNetworker extends AppCompatActivity {
     private static String TAG = UserNetworker.class.getSimpleName();
-    private TextView txtResponse;
+    //private TextView txtResponse;
 
+    String solviUrl = "http://192.168.122.1:8080/mobile_login";
+
+    LoginActivity loginActivity = new LoginActivity();
     // temporary string to show the parsed response
-    private String jsonResponse;
-    private ProgressDialog pDialog;
+    //private String jsonResponse;
 
-    public void makeStatsRequest(String URL) {
-        showpDialog();
 
-        JsonArrayRequest req = new JsonArrayRequest(URL,
-                new Response.Listener<JSONArray>() {
+    public void loginRequest(String username, String password) {
+        StringRequest req = new StringRequest(solviUrl+"?un="+username+"&pw="+password,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
+                    public void onResponse(String response) {
+                        Log.d(TAG, response);
 
                         try {
-                            // Parsing json array response
-                            // loop through each json object
-                            jsonResponse = "";
-                            for (int i = 0; i < response.length(); i++) {
+                            Log.i(response,"---------------");
+                            //txtResponse.setText(jsonResponse);
+                            //loginActivity.login(response);
 
-                                JSONObject stats = (JSONObject) response
-                                        .get(i);
-
-                                String date = stats.getString("date");
-                                String average = stats.getString("average");
-                                jsonResponse += "Date: " + date + "\n\n";
-                                jsonResponse += "Average: " + average + "\n\n";
-
-
-                            }
-
-                            txtResponse.setText(jsonResponse);
-
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-                        hidepDialog();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hidepDialog();
             }
         });
-
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
 
-    private void hidepDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 }

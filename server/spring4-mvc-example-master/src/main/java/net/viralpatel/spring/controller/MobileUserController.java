@@ -6,6 +6,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.util.ArrayList;
@@ -116,9 +118,12 @@ public class MobileUserController extends HttpServlet{
 
 	//Gets login page
 	@RequestMapping(value = "mobile_login", method = RequestMethod.GET)
-	public String loginGet(){
-		VIEW_INDEX = "login";
-		return VIEW_INDEX;
+	public @ResponseBody String loginGet(@RequestParam("un") String username, @RequestParam("pw") String password){
+		System.out.println("typpi boi");
+		if(userService.authUser(username,password)){
+			return "true";
+		}
+		else return "false";
 	}
 
 	//Authenticates the login, redirects to homepage if succesful
