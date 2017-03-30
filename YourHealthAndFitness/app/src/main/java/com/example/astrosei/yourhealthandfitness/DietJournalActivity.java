@@ -61,6 +61,20 @@ public class DietJournalActivity extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this,listDataHeader,listHashMap);
         expandableListView.setAdapter(listAdapter);
 
+        // Make so that only one list can be open at once.
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            // Keep track of previous expanded parent
+            int previousGroup = -1;
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                // Collapse previous parent if expanded.
+                if((previousGroup!=-1)&&(groupPosition!=previousGroup)){
+                    expandableListView.collapseGroup(previousGroup);
+                }
+                previousGroup = groupPosition;
+            }
+        });
+
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Diet Journal");
@@ -130,7 +144,7 @@ public class DietJournalActivity extends AppCompatActivity {
         thurday.add("fimmtudagsmatur");
 
         List<String> friday = new ArrayList<>();
-        friday.add("mánudagsmatur");
+        friday.add("föstudagsmatur");
 
         List<String> saturday = new ArrayList<>();
         saturday.add("laugardagsmatur");
