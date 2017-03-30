@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -189,6 +190,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity {
                 weight.setSingleLine();
                 weight.setGravity(Gravity.CENTER);
                 weight.setHint("weight "+ i);
+                weight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
                 // Make easier for user to fill in result.
                 // Have to be changed when objects have been added.
