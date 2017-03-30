@@ -22,12 +22,12 @@ import org.json.JSONObject;
 import comunicator.AppController;
 import networker.UserNetworker;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements UserNetworker.IDateCallback{
 
     private Button btnLogin;
     private EditText textUsername;
     private EditText textPassword;
-    UserNetworker userNetworker = new UserNetworker();
+    UserNetworker userNetworker = new UserNetworker(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 // Tries to login user.
-                login();
+                userNetworker.loginRequest(textUsername.getText().toString(),textPassword.getText().toString());
+                //login();
 
 
             }
@@ -52,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Tries to login user.
-    public void login(){
+    public void login(String responce){
 
         // Check if users credentials are correct
         //userNetworker.loginRequest(textUsername.getText().toString(),textPassword.getText().toString());

@@ -13,7 +13,7 @@ public class IndexActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private Button btnSignUp;
-    UserNetworker userNetworker = new UserNetworker();
+    //UserNetworker userNetworker = new UserNetworker();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
