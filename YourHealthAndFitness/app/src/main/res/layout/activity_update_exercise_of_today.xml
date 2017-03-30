@@ -18,21 +18,40 @@
             android:layout_width="match_parent"
             layout="@layout/toolbar_layout"/>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/main_container"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:fillViewport="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Update today"
-                android:textSize="30dp"/>
-        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
 
+                android:id="@+id/main_container"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tableLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="18dp">
+
+                </TableLayout>
+
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit results"
+                    android:id="@+id/btn_Submit"
+                    android:layout_below="@id/tableLayout"
+                    android:layout_margin="20dp"/>
+
+            </RelativeLayout>
+        </ScrollView>
     </LinearLayout>
-
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

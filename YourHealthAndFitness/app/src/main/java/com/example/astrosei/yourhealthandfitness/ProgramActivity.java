@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -27,7 +29,9 @@ public class ProgramActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private TextView textView;
+    private Button btn_Result;
 
+    // For program table
     private TableLayout tableLayout;
 
     @Override
@@ -39,13 +43,13 @@ public class ProgramActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
         tableLayout = (TableLayout)findViewById(R.id.tableLayout);
+        btn_Result = (Button)findViewById(R.id.btn_Result);
 
         // Date of the program
-        String date = getIntent().getStringExtra("exerciseDate");
+        final String date = getIntent().getStringExtra("exerciseDate");
 
         // Get program
         initTableData();
-
 
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
@@ -84,6 +88,16 @@ public class ProgramActivity extends AppCompatActivity {
 
             }
         });
+
+        // Redirects user to update result activity.
+        btn_Result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProgramActivity.this, UpdateExerciseOfTodayActivity.class);
+                intent.putExtra("exerciseDate",date);
+                startActivity(intent);
+            }
+        });
     }
     // For the navigation menu.
     @Override
@@ -96,6 +110,7 @@ public class ProgramActivity extends AppCompatActivity {
     // Inputs data into table
     public void initTableData() {
 
+        // Create header row.
         TableRow header = new TableRow(this);
 
         TextView name = new TextView(this);
@@ -130,38 +145,46 @@ public class ProgramActivity extends AppCompatActivity {
 
         for (int i = 0; i < 4; i++) {
 
-            // Set the name of an exercise alone in a row.
+            // Set the name of an exercise alone row.
             TableRow exerciseName = new TableRow(this);
             TextView nameText = new TextView(this);
             nameText.setText("Exercise name");
             nameText.setPadding(20,10,20,10);
+            nameText.setTextSize(14);
             exerciseName.addView(nameText);
             tableLayout.addView(exerciseName);
 
-            // Add sets and reps.
+            // Add sets, reps and suggested weight.
             for(int j = 0; j < 4; j++){
 
                 TableRow exercise = new TableRow(this);
+
                 TextView empty = new TextView(this);
                 empty.setGravity(Gravity.CENTER);
                 empty.setText("");
-                empty.setPadding(0,0,20,0);
+                empty.setPadding(20,5,20,5);
+                empty.setTextSize(14);
                 exercise.addView(empty);
 
                 TextView setNr = new TextView(this);
                 setNr.setGravity(Gravity.CENTER);
                 setNr.setText("set "+i);
-
+                setNr.setPadding(20,5,20,5);
+                setNr.setTextSize(14);
                 exercise.addView(setNr);
 
                 TextView rep = new TextView(this);
                 rep.setGravity(Gravity.CENTER);
                 rep.setText("rep " +i);
+                rep.setPadding(20,5,20,5);
+                rep.setTextSize(14);
                 exercise.addView(rep);
 
                 TextView weight = new TextView(this);
                 weight.setGravity(Gravity.CENTER);
                 weight.setText("weight "+ i);
+                weight.setPadding(20,5,20,5);
+                weight.setTextSize(14);
                 exercise.addView(weight);
 
                 tableLayout.addView(exercise);
