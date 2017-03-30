@@ -58,7 +58,8 @@ public class LoginActivity extends AppCompatActivity implements UserNetworker.ID
         // Check if users credentials are correct
         //userNetworker.loginRequest(textUsername.getText().toString(),textPassword.getText().toString());
         // If login successful.
-        if(true){
+        Boolean check = Boolean.valueOf(responce);
+        if(check){
             Toast.makeText(getApplicationContext(),"Redirecting...",Toast.LENGTH_SHORT).show();
 
             // Redirect to Homepage.
