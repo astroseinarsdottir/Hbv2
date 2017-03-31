@@ -26,7 +26,8 @@ public class UserNetworker extends AppCompatActivity {
     private static String TAG = UserNetworker.class.getSimpleName();
     //private TextView txtResponse;
 
-    String solviUrl = "http://192.168.122.1:8080/mobile_login";
+
+    String solviUrl = "http://130.208.100.213:8080/mobile_login";
 
 
     public interface loginCallback{

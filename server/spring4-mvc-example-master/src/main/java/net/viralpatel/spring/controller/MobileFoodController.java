@@ -76,14 +76,6 @@ public class MobileFoodController extends HttpServlet{
 			//return exercises;
 
 	}
-	/*@RequestMapping(value = "/mobile_stats", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Stats> publishStatsPost(HttpSession session, ModelMap model){
-		
-		ArrayList<Stats> stats = (ArrayList<Stats>) statsService.getAveragePerDay("sol", 1, "stronger");
-		return stats;
-		
-
-	}*/
 
 	@RequestMapping(value = "/mobile_info", method = RequestMethod.POST)
 	public  String publishInfoPost(@RequestBody String  request_json) {
