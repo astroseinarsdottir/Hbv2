@@ -16,7 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import net.viralpatel.spring.persistence.entities.User;
-
+import java.util.HashMap;
 import net.viralpatel.spring.service.UserService;
 import net.viralpatel.spring.service.VerifyService;
 
@@ -120,11 +120,18 @@ public class MobileUserController extends HttpServlet{
 	@RequestMapping(value = "mobile_login", method = RequestMethod.GET)
 	public @ResponseBody String loginGet(@RequestParam("un") String username, @RequestParam("pw") String password){
 		System.out.println("typpi boi");
+	
 		if(userService.authUser(username,password)){
 			return "true";
 		}
-		else return "false";
+		else {
+			return "false";
+		}
+
+
 	}
+
+
 
 	//Authenticates the login, redirects to homepage if succesful
 	@RequestMapping(value = "mobile_login", method = RequestMethod.POST)

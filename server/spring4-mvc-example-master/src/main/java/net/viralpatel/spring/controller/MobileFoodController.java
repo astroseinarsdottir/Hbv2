@@ -40,21 +40,18 @@ public class MobileFoodController extends HttpServlet{
 
 	//Gets diet plan recomended specific for each user
 	@RequestMapping(value = "/mobile_foodPlan", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Food> publishSuggestedFoodsPost(HttpSession session, @RequestParam("id") String id, @RequestParam("id2") String id2){
+	public @ResponseBody ArrayList<Food> publishSuggestedFoodsPost(HttpSession session, @RequestParam("username") String username){
 		
 		//Checks if user is logged in
 		/*if(session.getAttribute("username") == null){
 			VIEW_INDEX = "index";
 			return "redirect:/"+VIEW_INDEX;
 		}*/
-		System.out.println(id);
-		System.out.println(id2);
-
-
-		String username = (String)session.getAttribute("username");
+		
+		//String username = (String)session.getAttribute("username");
 
 		//Get foodPlan and add it to view
-		ArrayList<Food> foodPlan = foodService.getDietPlan("sol");
+		ArrayList<Food> foodPlan = foodService.getDietPlan(username);
 
 		//String food = new Gson().toJson(foodPlan);
 

@@ -1,0 +1,9 @@
+192.168.122.1 - - [31/Mar/2017:13:52:09 +0000] "GET /mobile_login?un=sol&pw=solsol HTTP/1.1" 200 4 http-bio-8080-exec-1 704
+192.168.122.1 - - [31/Mar/2017:13:52:12 +0000] "GET /mobile_foodPlan?username=sol HTTP/1.1" 200 269 http-bio-8080-exec-2 146
+192.168.122.1 - - [31/Mar/2017:13:54:10 +0000] "GET /mobile_foodPlan?username=sol HTTP/1.1" 200 269 http-bio-8080-exec-4 41
+192.168.122.1 - - [31/Mar/2017:14:00:57 +0000] "GET /mobile_login?un=sol&pw=solsol HTTP/1.1" 200 4 http-bio-8080-exec-6 86
+192.168.122.1 - - [31/Mar/2017:14:00:59 +0000] "GET /mobile_foodPlan?username=sol HTTP/1.1" 200 269 http-bio-8080-exec-7 13
+192.168.122.1 - - [31/Mar/2017:14:03:40 +0000] "GET /mobile_login?un=sol&pw=solsol HTTP/1.1" 200 4 http-bio-8080-exec-9 68
+192.168.122.1 - - [31/Mar/2017:14:03:42 +0000] "GET /mobile_foodPlan?username=sol HTTP/1.1" 200 269 http-bio-8080-exec-10 13
+192.168.122.1 - - [31/Mar/2017:14:06:53 +0000] "GET /mobile_foodPlan?username=sol HTTP/1.1" 200 269 http-bio-8080-exec-2 16
+192.168.122.1 - - [31/Mar/2017:14:08:44 +0000] "GET /mobile_foodPlan?username=sol HTTP/1.1" 200 269 http-bio-8080-exec-4 12

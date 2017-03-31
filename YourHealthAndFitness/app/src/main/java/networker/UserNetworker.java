@@ -26,17 +26,17 @@ public class UserNetworker extends AppCompatActivity {
     private static String TAG = UserNetworker.class.getSimpleName();
     //private TextView txtResponse;
 
-    String solviUrl = "http://130.208.151.49:8080/mobile_login";
+    String solviUrl = "http://192.168.122.1:8080/mobile_login";
 
 
-    public interface IDateCallback{
+    public interface loginCallback{
         void login(String response);
     }
-    private IDateCallback loginActivity;
+    private loginCallback loginActivity;
 
     public UserNetworker(Activity activity){
 
-        loginActivity = (IDateCallback)activity;
+        loginActivity = (loginCallback)activity;
     }
     //LoginActivity loginActivity = new LoginActivity();
     // temporary string to show the parsed response
@@ -53,6 +53,7 @@ public class UserNetworker extends AppCompatActivity {
                         try {
                             Log.i(response,"---------------");
                             //txtResponse.setText(jsonResponse);
+
                             loginActivity.login(response);
 
                         } catch (Exception e) {

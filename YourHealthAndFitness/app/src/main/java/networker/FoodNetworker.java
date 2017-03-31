@@ -1,5 +1,6 @@
 package networker;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.TextView;
@@ -14,7 +15,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import comunicator.AppController;
+import sessions.SessionManager;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -27,14 +31,22 @@ public class FoodNetworker {
     private static String TAG = FoodNetworker.class.getSimpleName();
     private TextView txtResponse;
 
-    // temporary string to show the parsed response
-    private String jsonResponse;
-    private ProgressDialog pDialog;
 
-    public void makeStatsRequest(String URL) {
-        showpDialog();
+    public interface getDietPlanCallback{
+        void initListData(JSONArray food);
+    }
+    private FoodNetworker.getDietPlanCallback dietJournalActivity;
 
-        JsonArrayRequest req = new JsonArrayRequest(URL,
+    public FoodNetworker(Activity activity){
+
+        dietJournalActivity = (FoodNetworker.getDietPlanCallback)activity;
+    }
+
+
+    public void getDietPlan(String name) {
+
+
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_foodPlan?username="+name,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -43,46 +55,32 @@ public class FoodNetworker {
                         try {
                             // Parsing json array response
                             // loop through each json object
-                            jsonResponse = "";
+                            JSONArray foodArray = (JSONArray) response;
+                            dietJournalActivity.initListData(foodArray);
+
                             for (int i = 0; i < response.length(); i++) {
 
-                                JSONObject stats = (JSONObject) response
-                                        .get(i);
+                                JSONObject food = (JSONObject) response.get(i);
 
-                                String date = stats.getString("date");
-                                String average = stats.getString("average");
-                                jsonResponse += "Date: " + date + "\n\n";
-                                jsonResponse += "Average: " + average + "\n\n";
-
+                                //dietJournalActivity.initListData(food);
 
                             }
 
-                            txtResponse.setText(jsonResponse);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        hidepDialog();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hidepDialog();
             }
         });
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
 
-    private void hidepDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 }
