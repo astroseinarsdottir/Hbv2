@@ -6,6 +6,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class MobileWorkoutController extends HttpServlet{
 	//Gets the homepage specific for each user. 
 	//Includes current workout cycle.
 	@RequestMapping(value = "mobile_homepage", method = RequestMethod.GET)
-	public String getCurrentCycleGet(HttpSession session, ModelMap model){
+	public @ResponseBody String getCurrentCycleGet(HttpSession session, ModelMap model){
 		//Checks if user is logged in
 		if(session.getAttribute("username") == null){
 			VIEW_INDEX = "index";
@@ -86,7 +89,7 @@ public class MobileWorkoutController extends HttpServlet{
 
 	//Takes the user to a specific day in the cycle
 	@RequestMapping(value = "mobile_homepage", method = RequestMethod.POST)
-	public String getCurrentCyclePost(HttpSession session, HttpServletRequest request){
+	public @ResponseBody String getCurrentCyclePost(HttpSession session, HttpServletRequest request){
 
 		//Find the right date and keep it in session
 		ArrayList<Day> currentCycle = (ArrayList<Day>)session.getAttribute("currentCycle");
@@ -124,36 +127,24 @@ public class MobileWorkoutController extends HttpServlet{
 
 	//Show user the whole workout for a specific day.
 	@RequestMapping(value = "mobile_workoutOfToday", method = RequestMethod.GET)
-	public String getSpecificDayGet(HttpSession session, ModelMap model){
+	public @ResponseBody ArrayList<Exercises> getSpecificDayGet(HttpSession session, @RequestParam("username") String username, @RequestParam("date") String date){
 		//Checks if user is logged in
 		if(session.getAttribute("username") == null){
 			VIEW_INDEX = "index";
 			return "redirect:/"+VIEW_INDEX;
 		}
 
-		//Get parameters
-		String username = (String)session.getAttribute("username");
-		String date = (String)session.getAttribute("date");
-
 		Day day = workoutService.getSpecificDay(username, date);
 
 		//Input information from day into view.
 		ArrayList<Exercises> exercises = day.getExercises();
-		int numberOfInputs=0;
 
-		for(int i=0; i<exercises.size();i++){
-			 numberOfInputs += exercises.get(i).getSet().size();
-		}
-		session.setAttribute("numberOfInputs",numberOfInputs);
-		model.addAttribute("exercises",exercises);
-
-		VIEW_INDEX = "workoutOfToday";
-		return VIEW_INDEX;
+		return exercises;
 	}
 
 	//Adds to database the weights that user lifted on that specific day
 	@RequestMapping(value = "mobile_workoutOfToday", method= RequestMethod.POST)
-	public String getSpecificDayPost(HttpSession session, HttpServletRequest request, ModelMap model){
+	public @ResponseBody String getSpecificDayPost(HttpSession session, @RequestBody ArrayList dumbellweights){
 
 		String username = (String)session.getAttribute("username");
 		String date = (String)session.getAttribute("date");
@@ -185,46 +176,18 @@ public class MobileWorkoutController extends HttpServlet{
 		workoutService.updateDay(day, username);
 
 
-		VIEW_INDEX = "homepage";
-		return "redirect:/"+VIEW_INDEX;
+		return null;
 	}
 	//Allows the user to see stats about a specific type of workouts. 
 	//Can only be accessed from specific day. 
 	//Shows you workout stats for that type of day.
-	@RequestMapping(value = "mobile_stats", method = RequestMethod.GET)
-	public String statsGet(HttpSession session, ModelMap model){
-		//Checks if user is logged in
-		if(session.getAttribute("username") == null){
-			VIEW_INDEX = "index";
-			return "redirect:/"+VIEW_INDEX;
-		}
-
-		String username = (String)session.getAttribute("username");
-		String date = (String)session.getAttribute("date");
-
-
-		ArrayList user = userService.findUser(username);
-		String goal = (String)user.get(1);
-		int id = workoutService.getIdByDate(username, date);
-		ArrayList<Stats> stats = statsService.getAveragePerDay(username,id,goal);
+	@RequestMapping(value = "/mobile_stats", method = RequestMethod.GET)
+	public @ResponseBody ArrayList<Stats> publishStatsPost(HttpSession session, @RequestParam("username") String username, 
+		@RequestParam("id") int id, @RequestParam("goal") String goal){
 		
-		model.addAttribute("stats",stats);
+		ArrayList<Stats> stats = (ArrayList<Stats>) statsService.getAveragePerDay(username, id, goal);
+		return stats;
+		
 
-		//If there are no stats to look at then the user is encouraged to workout more
-		if(stats == null){
-			model.addAttribute("display","none");
-			model.addAttribute("progressHeader","You have to workout more to be able to see your progress");
-		}
-		//Picture is shown that shows progress as well as average weight for each day
-		else{
-			LineChartService lcs = new LineChartService();
-			lcs.getLineChart(username, id, goal);
-			model.addAttribute("progressHeader","Average weight per day");
-			model.addAttribute("username", username);
-			model.addAttribute("display","inline");
-
-		}
-		VIEW_INDEX = "stats";		
-		return VIEW_INDEX;
 	}
 }
