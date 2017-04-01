@@ -16,8 +16,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import networker.UserNetworker;
@@ -127,13 +129,23 @@ public class ProfileActivity extends AppCompatActivity implements UserNetworker.
     }
 
 
-    public void setProfileText(JSONArray userAray){
-        textView_Name.setText("Ástrós Einarsdóttir");
-        textView_Email.setText("Prufa1");
-        textView_Age.setText("Prufa2");
-        textView_Goal.setText("Prufa3");
-        textView_Gender.setText("Prufa4");
-        textView_Weight.setText("Prufa5");
+    public void setProfileText(JSONArray userAray) {
+        ArrayList<String> listdata = new ArrayList<String>();
+        if (userAray != null) {
+            for (int i=0;i<userAray.length();i++){
+                try {
+                    listdata.add(userAray.getString(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        textView_Name.setText(listdata.get(0));
+        textView_Email.setText(listdata.get(2));
+        textView_Age.setText(listdata.get(3));
+        textView_Goal.setText(listdata.get(1));
+        textView_Gender.setText(listdata.get(4));
+        textView_Weight.setText(listdata.get(5));
     }
 
     public void test(){

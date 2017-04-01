@@ -2,6 +2,7 @@ package networker;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.support.v4.content.pm.ActivityInfoCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://192.168.122.1:8080/mobile_login";
+    String solviUrl = "http://192.168.1.9:8080/mobile_login";
 
 
     public interface loginCallback{
@@ -45,9 +46,15 @@ public class UserNetworker extends AppCompatActivity {
 
     public UserNetworker(Activity activity){
 
-        loginActivity = (loginCallback)activity;
-        profileActivity=(setMyPrifileTextCallBack)activity;
-
+        String name =activity.getClass().getSimpleName();
+        if(name.equals("LoginActivity")) {
+            loginActivity = (loginCallback) activity;
+            Log.d("ER í login",name);
+        }
+        else if(name.equals("ProfileActivity")) {
+            profileActivity = (setMyPrifileTextCallBack) activity;
+            Log.d("er í profile",name);
+        }
     }
 
 
@@ -86,7 +93,7 @@ public class UserNetworker extends AppCompatActivity {
 
     public void getUserProfileInfo(String username) {
 
-        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.1.9:8080/mobile_myProfile?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -99,8 +106,8 @@ public class UserNetworker extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),
+                       // error.getMessage(), Toast.LENGTH_SHORT).show();
           }
         });
 

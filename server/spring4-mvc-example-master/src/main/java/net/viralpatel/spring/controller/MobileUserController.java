@@ -154,7 +154,7 @@ public class MobileUserController extends HttpServlet{
 	}
 	//Gets the user profile page
 	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.GET)
-	public ArrayList myProfileGet(HttpSession session, @RequestParam("username") String username){
+	public @ResponseBody ArrayList myProfileGet(HttpSession session, @RequestParam("username") String username){
 		
 		ArrayList user = userService.findUser(username);
 		System.out.println(user);
