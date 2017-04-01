@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements UserNetworker.lo
     private Button btnLogin;
     private EditText textUsername;
     private EditText textPassword;
+
     UserNetworker userNetworker = new UserNetworker(this);
 
     SessionManager session;
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements UserNetworker.lo
             Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 }

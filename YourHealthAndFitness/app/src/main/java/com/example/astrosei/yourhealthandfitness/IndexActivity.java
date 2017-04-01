@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import networker.UserNetworker;
+import sessions.SessionManager;
 
 
 public class IndexActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private Button btnSignUp;
+
+    SessionManager session;
+
     //UserNetworker userNetworker = new UserNetworker();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +25,8 @@ public class IndexActivity extends AppCompatActivity {
         btnLogin = (Button)findViewById(R.id.btn_Login);
         btnSignUp = (Button)findViewById(R.id.btn_SignUp);
 
-
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
         // User chooses to login to his account
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override

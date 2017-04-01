@@ -149,7 +149,6 @@ public class DietJournalActivity extends AppCompatActivity implements FoodNetwor
         listDataHeader.add("Friday");
         listDataHeader.add("Saturday");
         listDataHeader.add("Sunday");
-<<<<<<< HEAD
         try {
 
             JSONObject food_0 = (JSONObject) foodArray.get(0);
@@ -230,7 +229,6 @@ public class DietJournalActivity extends AppCompatActivity implements FoodNetwor
         catch (Exception e){
             Log.i("errer","error i dietjournal");
         }
-=======
 
         // Create item belongin to header.
         List<String> monday = new ArrayList<>();
@@ -266,7 +264,6 @@ public class DietJournalActivity extends AppCompatActivity implements FoodNetwor
         listHashMap.put(listDataHeader.get(5), saturday);
         listHashMap.put(listDataHeader.get(6), sunday);
 
->>>>>>> 9860a2c9e4e67a4d453d26315feb4a23a234f83a
 
     }
 

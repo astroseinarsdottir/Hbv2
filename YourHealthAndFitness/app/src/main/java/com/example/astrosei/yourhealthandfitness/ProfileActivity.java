@@ -15,9 +15,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
-public class ProfileActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+import networker.UserNetworker;
+import sessions.SessionManager;
+
+public class ProfileActivity extends AppCompatActivity implements UserNetworker.setMyPrifileTextCallBack{
 
     private TextView textView_Name;
     private TextView textView_Email;
@@ -31,6 +37,11 @@ public class ProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    UserNetworker userNetworker = new UserNetworker(this);
+
+    SessionManager session;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +62,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Set the right values into the view
         // Not implemented, take values from database.
-        textView_Name.setText("Ástrós Einarsdóttir");
-        textView_Email.setText("Prufa1");
-        textView_Age.setText("Prufa2");
-        textView_Goal.setText("Prufa3");
-        textView_Gender.setText("Prufa4");
-        textView_Weight.setText("Prufa5");
+
+
+        session = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String username = user.get(SessionManager.KEY_NAME);
+
+
 
         // User wants to edit his profile, redirected to Update profile page.
+        //test();
+        userNetworker.getUserProfileInfo(username);
         btn_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,5 +124,24 @@ public class ProfileActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
 
         actionBarDrawerToggle.syncState();
+    }
+
+
+    public void setProfileText(JSONArray userAray){
+        textView_Name.setText("Ástrós Einarsdóttir");
+        textView_Email.setText("Prufa1");
+        textView_Age.setText("Prufa2");
+        textView_Goal.setText("Prufa3");
+        textView_Gender.setText("Prufa4");
+        textView_Weight.setText("Prufa5");
+    }
+
+    public void test(){
+        textView_Name.setText("Ástrós sölvi");
+        textView_Email.setText("Prufa1");
+        textView_Age.setText("Prufa2");
+        textView_Goal.setText("Prufa3");
+        textView_Gender.setText("Prufa4");
+        textView_Weight.setText("Prufa5");
     }
 }

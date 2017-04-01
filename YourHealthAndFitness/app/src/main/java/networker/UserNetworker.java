@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,12 +34,22 @@ public class UserNetworker extends AppCompatActivity {
     public interface loginCallback{
         void login(String response);
     }
+
+    public interface setMyPrifileTextCallBack{
+        void setProfileText(JSONArray userArray);
+    }
+
     private loginCallback loginActivity;
+    private  setMyPrifileTextCallBack profileActivity;
 
     public UserNetworker(Activity activity){
 
         loginActivity = (loginCallback)activity;
+        profileActivity=(setMyPrifileTextCallBack)activity;
+
     }
+
+
     //LoginActivity loginActivity = new LoginActivity();
     // temporary string to show the parsed response
     //private String jsonResponse;
@@ -67,6 +78,31 @@ public class UserNetworker extends AppCompatActivity {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
         });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+    }
+
+
+    public void getUserProfileInfo(String username) {
+
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.100.213:8080/mobile_myProfile?username="+username,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        profileActivity.setProfileText(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+          }
+        });
+
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }

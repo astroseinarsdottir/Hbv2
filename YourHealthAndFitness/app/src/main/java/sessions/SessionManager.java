@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+
+import com.example.astrosei.yourhealthandfitness.HomePageActivity;
 import com.example.astrosei.yourhealthandfitness.LoginActivity;
 
 public class SessionManager {
@@ -59,9 +61,9 @@ public class SessionManager {
      * */
     public void checkLogin(){
         // Check login status
-        if(!this.isLoggedIn()){
+        if(this.isLoggedIn()){
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, LoginActivity.class);
+            Intent i = new Intent(_context, HomePageActivity.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

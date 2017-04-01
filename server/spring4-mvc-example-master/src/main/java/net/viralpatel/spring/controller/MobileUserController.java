@@ -154,28 +154,12 @@ public class MobileUserController extends HttpServlet{
 	}
 	//Gets the user profile page
 	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.GET)
-	public String myProfileGet(HttpSession session, ModelMap model){
+	public ArrayList myProfileGet(HttpSession session, @RequestParam("username") String username){
 		
-		//Checks if user is logged in
-		if(session.getAttribute("username") == null){
-			VIEW_INDEX = "index";
-			return "redirect:/"+VIEW_INDEX;
-		}
-
-		String username = (String)session.getAttribute("username");
-
 		ArrayList user = userService.findUser(username);
+		System.out.println(user);
+		return user;
 
-		//Adds user info into view
-		model.addAttribute("name",user.get(0));
-		model.addAttribute("goal",user.get(1));
-		model.addAttribute("email",user.get(2));
-		model.addAttribute("age",user.get(3));
-		model.addAttribute("gender",user.get(4));
-		model.addAttribute("weight",user.get(5));
-
-		VIEW_INDEX = "myProfile";
-		return VIEW_INDEX;
 	}
 	//Redirects to update user page
 	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.POST)

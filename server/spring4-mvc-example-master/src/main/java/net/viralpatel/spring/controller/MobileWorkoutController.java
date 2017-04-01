@@ -131,7 +131,7 @@ public class MobileWorkoutController extends HttpServlet{
 		//Checks if user is logged in
 		if(session.getAttribute("username") == null){
 			VIEW_INDEX = "index";
-			return "redirect:/"+VIEW_INDEX;
+			//return "redirect:/"+VIEW_INDEX;
 		}
 
 		Day day = workoutService.getSpecificDay(username, date);
@@ -157,7 +157,7 @@ public class MobileWorkoutController extends HttpServlet{
 		//Gets weights inputs from user
 		for(int i=1; i<=numberOfInputs;i++){
 			String number = Integer.toString(i);
-			inputs.add(Double.parseDouble(request.getParameter(number)));
+			//inputs.add(Double.parseDouble(request.getParameter(number)));
 		}
 
 		//Adds input into day object.
