@@ -59,7 +59,7 @@ public class MobileWorkoutController extends HttpServlet{
 		String username = (String)session.getAttribute("username");
 		String date = (String)session.getAttribute("date");
 		int numberOfInputs = (Integer)session.getAttribute("numberOfInputs");
-		Day day = workoutService.getSpecificDay(username,date);
+		//day = workoutService.getSpecificDay(username,date);
 		ArrayList<Exercises> exercises = day.getExercises();
 		ArrayList<Double> inputs = new ArrayList<Double>();
 
@@ -101,7 +101,7 @@ public class MobileWorkoutController extends HttpServlet{
 				return stats;
 			}
 
-		return null
+		return null;
 
 	}
 }

@@ -12,7 +12,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class SignUpActivity extends AppCompatActivity {
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import networker.UserNetworker;
+
+public class SignUpActivity extends AppCompatActivity implements UserNetworker.registerCallback{
 
     private Spinner spinnerGoal;
     private Spinner spinnerGender;
@@ -27,6 +33,8 @@ public class SignUpActivity extends AppCompatActivity {
     private String[] genders;
     private ArrayAdapter<String> goalAdapter;
     private ArrayAdapter<String> genderAdapter;
+    UserNetworker userNetworker = new UserNetworker(this);
+
 
 
     @Override
@@ -154,6 +162,24 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+        String name = textName.getText().toString();
+        String username = textUsername.getText().toString();
+        String password = textPassword.getText().toString();
+        String email = textEmail.getText().toString();
+        String age = textAge.getText().toString();
+        String weight = textWeight.getText().toString();
+        String goal = spinnerGoal.getSelectedItem().toString();
+        HashMap<String,String> registerInfo = new HashMap<String, String>();
+        registerInfo.put("name", name);
+        registerInfo.put("username", username);
+        registerInfo.put("password",password);
+        registerInfo.put("email",email);
+        registerInfo.put("age",age);
+        registerInfo.put("weight",weight);
+        registerInfo.put("goal",goal);
+
+        userNetworker.register(registerInfo);
+
         // Check if username is available
         // Enter user into database
 
@@ -163,5 +189,20 @@ public class SignUpActivity extends AppCompatActivity {
         // Redirect user to Homepage.
         Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
         startActivity(intent);
+    }
+    public void checkSignUpSuccess(String response){
+
+        Boolean check = Boolean.valueOf(response);
+        if(check) {
+            Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+
+            // Redirect user to Homepage.
+            Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Error on Sign up", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

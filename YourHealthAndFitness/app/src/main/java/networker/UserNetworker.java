@@ -40,9 +40,17 @@ public class UserNetworker extends AppCompatActivity {
         void setProfileText(JSONArray userArray);
     }
 
+    public interface registerCallback{
+        void checkSignUpSuccess(String response);
+    }
+
+
+
     private loginCallback loginActivity;
 
     private  setMyProfileTextCallBack profileActivity;
+
+    private  registerCallback signUpActivity;
 
     public UserNetworker(Activity activity){
 
@@ -54,6 +62,10 @@ public class UserNetworker extends AppCompatActivity {
         else if(name.equals("ProfileActivity")) {
             profileActivity = (setMyProfileTextCallBack) activity;
             Log.d("er í profile",name);
+        }
+        else if(name.equals("SignUpActivity")) {
+            signUpActivity = (registerCallback) activity;
+            Log.d("e",name);
         }
     }
 
@@ -114,5 +126,28 @@ public class UserNetworker extends AppCompatActivity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
+
+        public void register(HashMap<String,String> registerInfo){
+
+            String tag_json_obj = "json_obj_req";
+
+            JsonObjectRequest request_json = new JsonObjectRequest("", new JSONObject(registerInfo),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            signUpActivity.checkSignUpSuccess(response.toString());
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+
+    // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(request_json, tag_json_obj);
+        }
 
 }

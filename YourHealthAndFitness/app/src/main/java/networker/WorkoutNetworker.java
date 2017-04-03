@@ -13,6 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import comunicator.AppController;
 
 /**
@@ -22,6 +25,7 @@ import comunicator.AppController;
 public class WorkoutNetworker {
     private static String TAG = WorkoutNetworker.class.getSimpleName();
     private TextView txtResponse;
+    private SimpleDateFormat SimpleDate = new SimpleDateFormat("dd/mm/yyyy");
 
     // temporary string to show the parsed response
     private String jsonResponse;
@@ -73,10 +77,13 @@ public class WorkoutNetworker {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    public void getWorkoutofToDay(String URLworkout) {
-        showpDialog();
+    private String URLworkout = "http://130.208.151.228:8181/mobile_workoutOfToday";
 
-        JsonArrayRequest req = new JsonArrayRequest(URLworkout,
+    public void getWorkoutofToDay(String username) {
+        showpDialog();
+        Date ComplexDate = new Date();
+        String date = SimpleDate.format(ComplexDate);
+        JsonArrayRequest req = new JsonArrayRequest(URLworkout+"?username="+username+"&date="+date,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {

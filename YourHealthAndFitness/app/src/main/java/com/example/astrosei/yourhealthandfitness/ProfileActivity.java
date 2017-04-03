@@ -25,7 +25,7 @@ import java.util.HashMap;
 import networker.UserNetworker;
 import sessions.SessionManager;
 
-public class ProfileActivity extends AppCompatActivity implements UserNetworker.setMyPrifileTextCallBack{
+public class ProfileActivity extends AppCompatActivity implements UserNetworker.setMyProfileTextCallBack{
 
     private TextView textView_Name;
     private TextView textView_Email;

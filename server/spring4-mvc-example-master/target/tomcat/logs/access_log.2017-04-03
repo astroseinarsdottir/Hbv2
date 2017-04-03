@@ -1,6 +1,0 @@
-0:0:0:0:0:0:0:1 - - [03/Apr/2017:15:46:09 +0000] "GET /index HTTP/1.1" 200 1155 http-bio-8181-exec-1 1267
-0:0:0:0:0:0:0:1 - - [03/Apr/2017:15:46:09 +0000] "GET /css/bootstrap.min.css HTTP/1.1" 404 993 http-bio-8181-exec-2 31
-0:0:0:0:0:0:0:1 - - [03/Apr/2017:15:46:09 +0000] "GET /css/testcss.css HTTP/1.1" 404 981 http-bio-8181-exec-3 8
-0:0:0:0:0:0:0:1 - - [03/Apr/2017:15:46:09 +0000] "GET /js/bootstrap.min.js HTTP/1.1" 404 989 http-bio-8181-exec-5 7
-0:0:0:0:0:0:0:1 - - [03/Apr/2017:15:46:17 +0000] "GET /mobile_workoutOfToday?username=sol&date=28/03/2017 HTTP/1.1" 500 4451 http-bio-8181-exec-7 576
-0:0:0:0:0:0:0:1 - - [03/Apr/2017:15:48:10 +0000] "GET /mobile_workoutOfToday?username=sol&date=24/11/2016 HTTP/1.1" 200 747 http-bio-8181-exec-10 207
