@@ -42,49 +42,14 @@ public class MobileFoodController extends HttpServlet{
 	@RequestMapping(value = "/mobile_foodPlan", method = RequestMethod.GET)
 	public @ResponseBody ArrayList<Food> publishSuggestedFoodsPost(HttpSession session, @RequestParam("username") String username){
 		
-		//Checks if user is logged in
-		/*if(session.getAttribute("username") == null){
-			VIEW_INDEX = "index";
-			return "redirect:/"+VIEW_INDEX;
-		}*/
 		
-		//String username = (String)session.getAttribute("username");
 
 		//Get foodPlan and add it to view
 		ArrayList<Food> foodPlan = foodService.getDietPlan(username);
 
-		//String food = new Gson().toJson(foodPlan);
 
 		return foodPlan;
 	}
-	@RequestMapping(value = "/mobile_allExercises", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Exercises> publishAllExercisesPost(HttpSession session, ModelMap model){
-		
-		//Object cc = workoutRepository.getAllExercises("stronger");
-		//ArrayList<Exercises> exercises = workoutRepository.getAllExercises("stronger");
-		ArrayList<Exercises> exer = (ArrayList<Exercises>) workoutRepository.getAllExercises("stronger");
-		return exer;
-		//return exercises;
-/*
-			if(cc instanceof ArrayList<?>){
-				System.out.println("eg er inni if bby");
-				ArrayList<Exercises> exercises = (ArrayList<Exercises>) cc;
 				
-				//return exercises;	
-			}
-*/
-			//return exercises;
-
-	}
-
-	@RequestMapping(value = "/mobile_info", method = RequestMethod.POST)
-	public  String publishInfoPost(@RequestBody String  request_json) {
-		
-		//ArrayList<Food> test = new ArrayList<Food>(params.values());
-		System.out.println(request_json);
-		System.out.println("hvað er að frétta herna ???");
-		return request_json;
-
-	}				
 
 }

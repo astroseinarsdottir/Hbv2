@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -30,45 +31,21 @@ public class MobileUserController extends HttpServlet{
 	private static VerifyService verifyService = new VerifyService();
 	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-	//Gets starting page
-	@RequestMapping(value = "mobile_index", method = RequestMethod.GET)
-	public String indexGet() {
-			VIEW_INDEX = "index";
-		return VIEW_INDEX;
-	}
 
-	//Redirects to login page or register page
-	@RequestMapping(value = "mobile_index", method = RequestMethod.POST)
-	public String indexPost(HttpServletRequest request) {
-		if(request.getParameter("login")!=null){
-			VIEW_INDEX = "login";
-		}
-		else if(request.getParameter("register")!=null){
-			VIEW_INDEX = "register";
-		}
-		return "redirect:/"+VIEW_INDEX;
-	}
-
-	//Gets register page
-	@RequestMapping(value = "mobile_register", method = RequestMethod.GET)
-	public String registerGet() {
-			VIEW_INDEX = "register";
-		return VIEW_INDEX;
-	}
 
 	//Registers new user, redirects to homepage when succesfull
 	@RequestMapping(value = "mobile_register", method = RequestMethod.POST)
-	public String registerPost(HttpServletRequest request, ModelMap model, HttpSession session) {
+	public @ResponseBody boolean registerPost(HttpServletRequest request, ModelMap model, HttpSession session, @RequestBody HashMap<String,String> register) {
 
 		//Gets parameters from form
-		String name = request.getParameter("name");
-		String password	= request.getParameter("password");
-		String email = request.getParameter("email");
-		String username = request.getParameter("username");
-		String age = request.getParameter("age");
-		String goal = request.getParameter("goal");
-		String gender = request.getParameter("gender");
-		String weight = request.getParameter("weight");
+		String name = register.get("name");
+		String password	= register.get("password");
+		String email = register.get("email");
+		String username = register.get("username");
+		String age = register.get("age");
+		String goal = register.get("goal");
+		String gender = register.get("gender");
+		String weight = register.get("weight");
 		
 		Date date = new Date();
 		String nextUpdate = (String)dateFormat.format(date);
@@ -98,30 +75,19 @@ public class MobileUserController extends HttpServlet{
 		else{
 			session.setAttribute("username", username);
 			userService.createNewUser(name,password,email,username,age,goal,gender,weight,nextUpdate);
-			VIEW_INDEX = "homepage";
-			return "redirect:/"+VIEW_INDEX;
+			return true;
 		}
 
-		//Keeps input if not succesful
-		model.addAttribute("name", name);
-		model.addAttribute("email", email);
-		model.addAttribute("username", username);
-		model.addAttribute("password", password);
-		model.addAttribute("age", age);
-		model.addAttribute("goal", goal );
-		model.addAttribute("gender", gender);
-		model.addAttribute("weight", weight);
-		model.addAttribute("error", error);
 
-		return null;
+		return false;
 	}
 
 	//Gets login page
 	@RequestMapping(value = "mobile_login", method = RequestMethod.GET)
-	public @ResponseBody String loginGet(@RequestParam("un") String username, @RequestParam("pw") String password){
-		System.out.println("typpi boi");
+	public @ResponseBody String loginGet(HttpSession session, @RequestParam("un") String username, @RequestParam("pw") String password){
 	
 		if(userService.authUser(username,password)){
+			session.setAttribute("username", username);
 			return "true";
 		}
 		else {
@@ -132,95 +98,68 @@ public class MobileUserController extends HttpServlet{
 	}
 
 
-
-	//Authenticates the login, redirects to homepage if succesful
-	@RequestMapping(value = "mobile_login", method = RequestMethod.POST)
-	public String loginPost(HttpServletRequest request, ModelMap model, HttpSession session){
-		
-		//Gets parameters
-		String password	= request.getParameter("pw");
-		String username = request.getParameter("person_id");
-
-		if(userService.authUser(username, password)){
-			session.setAttribute("username", username);
-			VIEW_INDEX = "homepage";	
-			return  "redirect:/"+VIEW_INDEX;
-		}
-		else{
-			model.addAttribute("error", "Invalid Username or Password");
-			return null;
-		}
-
-	}
 	//Gets the user profile page
 	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.GET)
 	public @ResponseBody ArrayList myProfileGet(HttpSession session, @RequestParam("username") String username){
 		
-		ArrayList user = userService.findUser(username);
-		System.out.println(user);
-		return user;
+		//Checks if user is logged in
+		if(session.getAttribute("username") == username){
+
+			ArrayList user = userService.findUser(username);
+			
+			return user;
+			
+		}
+
+		return null;
 
 	}
-	//Redirects to update user page
-	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.POST)
-	public String myProfilePost(){
-		
 
-		VIEW_INDEX = "mobile_updateUser";
-		return "redirect:/"+VIEW_INDEX;
-	}
 	//Gets update user page
 	@RequestMapping(value = "mobile_updateUser", method = RequestMethod.GET)
-	public String updateUserGet(HttpSession session, ModelMap model){
+	public @ResponseBody ArrayList updateUserGet(HttpSession session, ModelMap model, @RequestParam("username") String username){
 		
 		//Checks if users is logged in
-		if(session.getAttribute("username") == null){
-			VIEW_INDEX = "index";
-			return "redirect:/"+VIEW_INDEX;
-		}
-		String username = (String)session.getAttribute("username");
-		ArrayList user = userService.findUser(username);
+		if(session.getAttribute("username") == username){
+
+			ArrayList user = userService.findUser(username);
 
 		//Inputs current user info into view
-		model.addAttribute("goal",user.get(1));
-		model.addAttribute("email",user.get(2));
-		model.addAttribute("age",user.get(3));
-		model.addAttribute("gender",user.get(4));
-		model.addAttribute("weight",user.get(5));
-		model.addAttribute("update",user.get(6));
+			return user;
+		}
 
-		return VIEW_INDEX;
-	}	
+		//Inputs current user info into view
+
+		return null;
+	}
+	
 	//Updates user informaition
 	@RequestMapping(value = "mobile_updateUser", method = RequestMethod.POST)
-	public String updateUserPost(HttpServletRequest request, HttpSession session, ModelMap model){
+	public @ResponseBody boolean updateUserPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> updateUser){
 
 		//Checks if users is logged in
 		if(session.getAttribute("username") == null){
-			VIEW_INDEX = "index";
-			return "redirect:/"+VIEW_INDEX;
+			return false;
 		}
 		
 		String username = (String)session.getAttribute("username");
-		String goal = request.getParameter("goal");
-		int age	 = Integer.parseInt(request.getParameter("age"));
-		String weight = request.getParameter("weight");
+		String goal = updateUser.get("goal");
+		int age	 = Integer.parseInt(updateUser.get("age"));
+		String weight = updateUser.get("weight");
 
 		//Changes user info in database
 		User user = new User(null,null,null,age,username,goal,null,Double.parseDouble(weight),null);
 
 		userService.updateUser(user);
 
-		VIEW_INDEX = "myProfile";
-		return "redirect:/"+ VIEW_INDEX;
+		return true;
 	}
 	//Logs out user
 	@RequestMapping(value = "mobile_logout", method = RequestMethod.GET)
-	public String logOutGet(HttpSession session) {
+	public @ResponseBody boolean logOutGet(HttpSession session) {
 		
 		session.invalidate();
-		VIEW_INDEX = "index";
-		return "redirect:/"+VIEW_INDEX;
+		return true;
 	}
 }
 

@@ -72,6 +72,48 @@ public class WorkoutNetworker {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
+
+    public void getWorkoutofToDay(String URLworkout) {
+        showpDialog();
+
+        JsonArrayRequest req = new JsonArrayRequest(URLworkout,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        try {
+                            // Parsing json array response
+                            // loop through each json object
+                            for (int i = 0; i < response.length(); i++) {
+
+                                JSONObject stats = (JSONObject) response
+                                        .get(i);
+
+                                String date = stats.getString("date");
+                                String average = stats.getString("average");
+
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        hidepDialog();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                hidepDialog();
+            }
+        });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+    }
     private void showpDialog() {
         if (!pDialog.isShowing())
             pDialog.show();

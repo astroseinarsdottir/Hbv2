@@ -36,13 +36,13 @@ public class UserNetworker extends AppCompatActivity {
         void login(String response);
     }
 
-    public interface setMyPrifileTextCallBack{
+    public interface setMyProfileTextCallBack{
         void setProfileText(JSONArray userArray);
     }
 
     private loginCallback loginActivity;
 
-    private  setMyPrifileTextCallBack profileActivity;
+    private  setMyProfileTextCallBack profileActivity;
 
     public UserNetworker(Activity activity){
 
@@ -52,7 +52,7 @@ public class UserNetworker extends AppCompatActivity {
             Log.d("ER í login",name);
         }
         else if(name.equals("ProfileActivity")) {
-            profileActivity = (setMyPrifileTextCallBack) activity;
+            profileActivity = (setMyProfileTextCallBack) activity;
             Log.d("er í profile",name);
         }
     }
