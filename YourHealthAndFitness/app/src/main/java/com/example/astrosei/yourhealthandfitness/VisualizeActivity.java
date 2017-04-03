@@ -23,12 +23,13 @@ public class VisualizeActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    LineGraphSeries<DataPoint> series;//Tengt vizutest
+    private LineGraphSeries<DataPoint> series;//Tengt vizutest
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualize);
+
         //Vizutest
         double[] x = new double[] {1,2,3,4,5};
         double[] y = new double[]{7.823,13.411,19.294,7.529,5.67};
@@ -40,7 +41,7 @@ public class VisualizeActivity extends AppCompatActivity {
             dataPoints[i] = new DataPoint(x[i],y[i]);
         }
 
-        LineGraphSeries<DataPoint>series = new LineGraphSeries<DataPoint>(dataPoints);
+       series = new LineGraphSeries<DataPoint>(dataPoints);
 
         graphView.getViewport().setScrollable(true);
         graphView.addSeries(series);

@@ -30,6 +30,7 @@ public class ProgressActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
+        vizutest = (Button)findViewById(R.id.vizutest);
 
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
