@@ -18,12 +18,12 @@ public class UserService{
 		try{
 			String hashandsalt = pass.getSaltedHash(password);
 
-			System.out.println("Ég er dagsetning: " + nextUpdate);
 			User user = new User(name,hashandsalt,email,Integer.parseInt(age),username,goal,gender,Double.parseDouble(weight),nextUpdate);
 			userRepository.createNewUser(user);
+
+			System.out.print("gera user ++++++++------------- "+ username);
+
 			workoutRepository.createCycle(username,nextUpdate);
-			
-			System.out.println("Ég er dagsetning: " +" "+ nextUpdate);
 		}catch(Exception e){
 
 		}

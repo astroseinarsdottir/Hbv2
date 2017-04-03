@@ -54,7 +54,7 @@ public class MobileUserController extends HttpServlet{
 		String nextUpdate = (String)dateFormat.format(date);
 		ArrayList error = new ArrayList();
 
-		User user = new User(name,password,email,Integer.parseInt(age),username,goal,gender,Double.parseDouble(weight),nextUpdate);
+		//User user = new User(name,password,email,Integer.parseInt(age),username,goal,gender,Double.parseDouble(weight),nextUpdate);
 
 		//Verifies if parameters are in the correct format
 		if(!verifyService.verifyName(name)||!verifyService.verifyUsername(username)||
@@ -79,7 +79,7 @@ public class MobileUserController extends HttpServlet{
 		//Redirects to homepage
 		else{
 			userService.createNewUser(name,password,email,username,age,goal,gender,weight,nextUpdate);
-			workoutService.createNewCycle(user);
+			//workoutService.createNewCycle(user);
 			return true;
 		}
 

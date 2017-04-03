@@ -1988,5 +1988,18 @@ $S8mac/7uL5Trhw9O8MWj04cAxcur0BAAzgvRnL8ba+c=
       </day>
     </workoutPlan>
   </person>
+  <person username="halla">
+    <name>Halla</name>
+    <password>bFvGG2XD6PMoFNwx8JYwKvcKC+U8n2EgXdsyDRm1dIY=
+$G6aTz57TCO9cFgsW0ojrdQWwwwPb59iOPgt8WnHVhxs=
+</password>
+    <email>halla@hi.is</email>
+    <age>22</age>
+    <goal>Stronger</goal>
+    <gender>Female</gender>
+    <userWeight>50.0</userWeight>
+    <nextUpdate>03/04/2017</nextUpdate>
+    <workoutPlan/>
+  </person>
 </XML-S>
 
