@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class ProgressActivity extends AppCompatActivity {
 
@@ -18,6 +20,7 @@ public class ProgressActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private Button vizutest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,14 @@ public class ProgressActivity extends AppCompatActivity {
                 }
                 return true;
 
+            }
+        });
+        //Vizutest
+        vizutest.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(ProgressActivity.this, VisualizeActivity.class);
+                startActivity(intent);
             }
         });
     }

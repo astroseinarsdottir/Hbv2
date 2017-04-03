@@ -29,6 +29,11 @@
                 android:layout_height="wrap_content"
                 android:text="Progress"
                 android:textSize="30sp"/>
+            <Button
+                android:text="Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/vizutest" />
         </LinearLayout>
 
     </LinearLayout>

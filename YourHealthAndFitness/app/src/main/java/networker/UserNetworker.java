@@ -29,7 +29,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://192.168.1.9:8080/mobile_login";
+    String solviUrl = "http://192.168.3.17:8080/mobile_login";  //!!!
 
 
     public interface loginCallback{

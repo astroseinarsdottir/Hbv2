@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 public class VisualizeActivity extends AppCompatActivity {
 
     // For navigation toolbar
@@ -19,10 +23,28 @@ public class VisualizeActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+    LineGraphSeries<DataPoint> series;//Tengt vizutest
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualize);
+        //Vizutest
+        double[] x = new double[] {1,2,3,4,5};
+        double[] y = new double[]{7.823,13.411,19.294,7.529,5.67};
+
+        GraphView graphView = (GraphView) findViewById(R.id.graph);
+
+        DataPoint[] dataPoints = new DataPoint[x.length];
+        for(int i = 0; i < x.length; i++){
+            dataPoints[i] = new DataPoint(x[i],y[i]);
+        }
+
+        LineGraphSeries<DataPoint>series = new LineGraphSeries<DataPoint>(dataPoints);
+
+        graphView.getViewport().setScrollable(true);
+        graphView.addSeries(series);
+
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
