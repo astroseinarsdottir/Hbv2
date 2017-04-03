@@ -20,6 +20,7 @@ import net.viralpatel.spring.persistence.entities.User;
 import java.util.HashMap;
 import net.viralpatel.spring.service.UserService;
 import net.viralpatel.spring.service.VerifyService;
+import net.viralpatel.spring.service.WorkoutService;
 
 
 @Controller
@@ -29,6 +30,7 @@ public class MobileUserController extends HttpServlet{
 	private final static org.slf4j.Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static UserService userService = new UserService();
 	private static VerifyService verifyService = new VerifyService();
+	private static WorkoutService workoutService = new WorkoutService();
 	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
@@ -46,10 +48,13 @@ public class MobileUserController extends HttpServlet{
 		String goal = register.get("goal");
 		String gender = register.get("gender");
 		String weight = register.get("weight");
+
 		
 		Date date = new Date();
 		String nextUpdate = (String)dateFormat.format(date);
 		ArrayList error = new ArrayList();
+
+		User user = new User(name,password,email,Integer.parseInt(age),username,goal,gender,Double.parseDouble(weight),nextUpdate);
 
 		//Verifies if parameters are in the correct format
 		if(!verifyService.verifyName(name)||!verifyService.verifyUsername(username)||
@@ -73,8 +78,8 @@ public class MobileUserController extends HttpServlet{
 		}
 		//Redirects to homepage
 		else{
-			session.setAttribute("username", username);
 			userService.createNewUser(name,password,email,username,age,goal,gender,weight,nextUpdate);
+			workoutService.createNewCycle(user);
 			return true;
 		}
 
@@ -102,16 +107,9 @@ public class MobileUserController extends HttpServlet{
 	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.GET)
 	public @ResponseBody ArrayList myProfileGet(HttpSession session, @RequestParam("username") String username){
 		
-		//Checks if user is logged in
-		if(session.getAttribute("username") == username){
-
-			ArrayList user = userService.findUser(username);
+		ArrayList user = userService.findUser(username);
 			
-			return user;
-			
-		}
-
-		return null;
+		return user;
 
 	}
 
@@ -120,27 +118,18 @@ public class MobileUserController extends HttpServlet{
 	public @ResponseBody ArrayList updateUserGet(HttpSession session, ModelMap model, @RequestParam("username") String username){
 		
 		//Checks if users is logged in
-		if(session.getAttribute("username") == username){
-
-			ArrayList user = userService.findUser(username);
-
-		//Inputs current user info into view
-			return user;
-		}
-
-		//Inputs current user info into view
-
-		return null;
-	}
 	
+
+		ArrayList user = userService.findUser(username);
+
+		//Inputs current user info into view
+		return user;
+	
+	}
 	//Updates user informaition
 	@RequestMapping(value = "mobile_updateUser", method = RequestMethod.POST)
 	public @ResponseBody boolean updateUserPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> updateUser){
 
-		//Checks if users is logged in
-		if(session.getAttribute("username") == null){
-			return false;
-		}
 		
 		String username = (String)session.getAttribute("username");
 		String goal = updateUser.get("goal");

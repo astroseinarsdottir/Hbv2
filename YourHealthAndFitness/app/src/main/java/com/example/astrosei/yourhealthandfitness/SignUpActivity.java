@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import networker.UserNetworker;
+import sessions.SessionManager;
 
 public class SignUpActivity extends AppCompatActivity implements UserNetworker.registerCallback{
 
@@ -33,7 +34,9 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
     private String[] genders;
     private ArrayAdapter<String> goalAdapter;
     private ArrayAdapter<String> genderAdapter;
+
     UserNetworker userNetworker = new UserNetworker(this);
+    SessionManager session;
 
 
 
@@ -169,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
         String age = textAge.getText().toString();
         String weight = textWeight.getText().toString();
         String goal = spinnerGoal.getSelectedItem().toString();
+        String gender = spinnerGender.getSelectedItem().toString();
         HashMap<String,String> registerInfo = new HashMap<String, String>();
         registerInfo.put("name", name);
         registerInfo.put("username", username);
@@ -177,6 +181,7 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
         registerInfo.put("age",age);
         registerInfo.put("weight",weight);
         registerInfo.put("goal",goal);
+        registerInfo.put("gender",gender);
 
         userNetworker.register(registerInfo);
 
@@ -194,6 +199,12 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
 
         Boolean check = Boolean.valueOf(response);
         if(check) {
+
+            String username = textUsername.getText().toString();
+            session = new SessionManager(getApplicationContext());
+
+            session.createLoginSession(username);
+
             Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
 
             // Redirect user to Homepage.

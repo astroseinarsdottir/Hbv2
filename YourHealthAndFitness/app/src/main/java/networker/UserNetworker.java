@@ -29,7 +29,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://130.208.100.38:8181/mobile_login";  //!!!
+    String solviUrl = "http://130.208.151.115:8080//mobile_login";  //!!!
 
 
     public interface loginCallback{
@@ -65,7 +65,7 @@ public class UserNetworker extends AppCompatActivity {
         }
         else if(name.equals("SignUpActivity")) {
             signUpActivity = (registerCallback) activity;
-            Log.d("e",name);
+            Log.d("er í signup",name);
         }
     }
 
@@ -105,7 +105,7 @@ public class UserNetworker extends AppCompatActivity {
 
     public void getUserProfileInfo(String username) {
 
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.100.38:8181/mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.115:8080//mobile_myProfile?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -131,7 +131,7 @@ public class UserNetworker extends AppCompatActivity {
 
             String tag_json_obj = "json_obj_req";
 
-            JsonObjectRequest request_json = new JsonObjectRequest("", new JSONObject(registerInfo),
+            JsonObjectRequest request_json = new JsonObjectRequest("http://130.208.151.115:8080/mobile_register", new JSONObject(registerInfo),
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
