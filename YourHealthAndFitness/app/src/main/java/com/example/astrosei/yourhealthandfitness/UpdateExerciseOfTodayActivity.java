@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +22,25 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
+import networker.UpdateExerciseNetworker;
+import sessions.SessionManager;
+
 import static com.example.astrosei.yourhealthandfitness.R.id.tableLayout;
 
-public class UpdateExerciseOfTodayActivity extends AppCompatActivity {
 
+
+public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements UpdateExerciseNetworker.getCurrentCycleCallBackForProgram{
+
+    UpdateExerciseNetworker updateExerciseNetworker = new UpdateExerciseNetworker(this);
     // For navigation toolbar
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -36,6 +52,8 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity {
     private EditText editText;
 
     private Button btn_Submit;
+
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +68,39 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity {
         // Date of the program
         String date = getIntent().getStringExtra("exerciseDate");
 
+        // Get program
+        session = new SessionManager(getApplicationContext());
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        // name
+        String username = user.get(SessionManager.KEY_NAME);
+        //updateExerciseNetworker.getCurrentCycleRequest(username, date);
+
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
         if(date==null){
-            getSupportActionBar().setTitle("Today's results");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar c = Calendar.getInstance();
+            Date todaysdate = c.getTime();
+            String todaysdatestring = dateFormat.format(todaysdate);
+            getSupportActionBar().setTitle(todaysdatestring);
+            updateExerciseNetworker.getCurrentCycleRequest(username, "04/04/2017");
+
         }
         else{
             getSupportActionBar().setTitle(date +" results");
+            updateExerciseNetworker.getCurrentCycleRequest(username, date);
+
         }
 
-        final int numberOfInputs = initTableData();
+        //final int numberOfInputs = initTableData();
 
         // Not fully implemented, puts the weights into database.
         btn_Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                submit(numberOfInputs);
+                //submit(numberOfInputs);
                 Intent intent = new Intent(UpdateExerciseOfTodayActivity.this,HomePageActivity.class);
                 startActivity(intent);
             }
@@ -114,7 +148,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    public int initTableData(){
+    public void initTableData(JSONArray currCycle, String date){
         // Create header row.
         TableRow header = new TableRow(this);
 
@@ -149,71 +183,114 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity {
         tableLayout.addView(header);
 
         int id = 0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < currCycle.length(); i++) {
 
             // Set the name of an exercise alone row.
-            TableRow exerciseName = new TableRow(this);
-            TextView nameText = new TextView(this);
-            nameText.setText("Exercise name");
-            nameText.setPadding(20,10,20,10);
-            nameText.setTextSize(14);
-            exerciseName.addView(nameText);
-            tableLayout.addView(exerciseName);
 
-            // Add sets, reps and suggested weight.
-            for(int j = 0; j < 4; j++){
+            try{
 
-                TableRow exercise = new TableRow(this);
+                //TableRow exerciseName = new TableRow(this);
+                //TextView nameText = new TextView(this);
 
-                TextView empty = new TextView(this);
-                empty.setGravity(Gravity.CENTER);
-                empty.setText("");
-                empty.setPadding(20,5,20,5);
-                empty.setTextSize(14);
-                exercise.addView(empty);
+                JSONObject dayObject = (JSONObject) currCycle.get(i);
 
-                TextView setNr = new TextView(this);
-                setNr.setGravity(Gravity.CENTER);
-                setNr.setText("set "+i);
-                setNr.setPadding(20,5,20,5);
-                setNr.setTextSize(14);
-                exercise.addView(setNr);
+                if(dayObject.getString("date").equalsIgnoreCase(date)) {
+                    Log.i(dayObject.getString("date"), date + "--------------------------------");
+                    JSONArray exercisesArray = dayObject.getJSONArray("exercises");
+                    Log.i(exercisesArray.toString(),"0000000000000000000");
 
-                TextView rep = new TextView(this);
-                rep.setGravity(Gravity.CENTER);
-                rep.setText("rep " +i);
-                rep.setPadding(20,5,20,5);
-                rep.setTextSize(14);
-                exercise.addView(rep);
+                    //JSONObject exerciseOBJECTTEST = (JSONObject) exercisesArray.get(0);
 
-                EditText weight = new EditText(this);
-                weight.setSingleLine();
-                weight.setGravity(Gravity.CENTER);
-                weight.setHint("weight "+ i);
-                weight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-                // Make easier for user to fill in result.
-                // Have to be changed when objects have been added.
-                if(i+1==4 && j+1==4){
-                    weight.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                    for(int u = 0; u< exercisesArray.length(); u++){
+                        JSONObject exerciseOBJECT = (JSONObject) exercisesArray.get(u);
+
+                        String exerciseNNAMEBITS = exerciseOBJECT.getString("name");
+
+
+                        TableRow exerciseName = new TableRow(this);
+                        TextView nameText = new TextView(this);
+
+                        nameText.setText(exerciseNNAMEBITS);
+
+                        nameText.setPadding(20,10,20,10);
+                        nameText.setTextSize(14);
+                        exerciseName.addView(nameText);
+                        tableLayout.addView(exerciseName);
+
+                        JSONArray setArray = exerciseOBJECT.getJSONArray("set");
+
+                        // Add sets, reps and suggested weight.
+                        for(int j = 0; j < setArray.length(); j++) {
+
+                            TableRow exercise = new TableRow(this);
+
+                            TextView empty = new TextView(this);
+                            empty.setGravity(Gravity.CENTER);
+                            empty.setText("");
+                            empty.setPadding(20, 5, 20, 5);
+                            empty.setTextSize(14);
+                            exercise.addView(empty);
+
+                            JSONObject setOBJECT = (JSONObject) setArray.get(j);
+
+                            String setNumber = setOBJECT.getString("number");
+
+                            TextView setNr = new TextView(this);
+                            setNr.setGravity(Gravity.CENTER);
+                            setNr.setText("set " + setNumber);
+                            setNr.setPadding(20, 5, 20, 5);
+                            setNr.setTextSize(14);
+                            exercise.addView(setNr);
+
+                            String repNumber = setOBJECT.getString("rep");
+
+                            TextView rep = new TextView(this);
+                            rep.setGravity(Gravity.CENTER);
+                            rep.setText("rep " + repNumber);
+                            rep.setPadding(20, 5, 20, 5);
+                            rep.setTextSize(14);
+                            exercise.addView(rep);
+
+                            String weightNumber = setOBJECT.getString("weight");
+
+                            EditText weight = new EditText(this);
+                            weight.setGravity(Gravity.CENTER);
+                            weight.setHint("weight "+ i);
+                            weight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+                            // Make easier for user to fill in result.
+                            // Have to be changed when objects have been added.
+                            if(i+1==4 && j+1==4){
+                                weight.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                            }
+                            else {
+                                weight.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                            }
+                            weight.setPadding(20,5,20,5);
+                            weight.setTextSize(14);
+                            weight.setId(id);
+                            exercise.addView(weight);
+
+                            tableLayout.addView(exercise);
+
+                            // So the id for the weights are unique.
+                            id++;
+                        }
+
+                    }
+
                 }
-                else {
-                    weight.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                }
-                weight.setPadding(20,5,20,5);
-                weight.setTextSize(14);
-                weight.setId(id);
-                exercise.addView(weight);
 
-                tableLayout.addView(exercise);
-
-                // So the id for the weights are unique.
-                id++;
+            }
+            catch(JSONException e){
+                e.printStackTrace();
+            }
             }
 
         }
-        return id;
-    }
+        //return id;
+
 
     // Puts the weights that the user submited into database.
     public void submit(int numberOfInputs){

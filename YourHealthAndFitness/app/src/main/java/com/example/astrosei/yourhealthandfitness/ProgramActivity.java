@@ -157,7 +157,7 @@ public class ProgramActivity extends AppCompatActivity implements ProgramNetwork
         header.addView(reps);
 
         TextView weights  = new TextView(this);
-        weights.setText("Weight in kg");
+        weights.setText("Last Weight used");
         weights.setTextSize(20);
         weights.setTypeface(null,Typeface.BOLD);
         weights.setPadding(20,10,20,10);
