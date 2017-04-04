@@ -230,40 +230,6 @@ public class DietJournalActivity extends AppCompatActivity implements FoodNetwor
             Log.i("errer","error i dietjournal");
         }
 
-        // Create item belongin to header.
-        List<String> monday = new ArrayList<>();
-        monday.add("mánudagsmatur");
-        monday.add("prufa2");
-        monday.add("prufffffa");
-
-        List<String> tuesday = new ArrayList<>();
-        tuesday.add("þriðjudagsmatur");
-
-        List<String> wednesday = new ArrayList<>();
-        wednesday.add("miðvikudagsmatur");
-
-        List<String> thurday = new ArrayList<>();
-        thurday.add("fimmtudagsmatur");
-
-        List<String> friday = new ArrayList<>();
-        friday.add("föstudagsmatur");
-
-        List<String> saturday = new ArrayList<>();
-        saturday.add("laugardagsmatur");
-
-        List<String> sunday = new ArrayList<>();
-        sunday.add("sunnudagsmatur");
-        //for each food in day, add to day.+
-        // T.d sunday.add(typeOfMeal+ ":" + name)
-
-        listHashMap.put(listDataHeader.get(0), monday);
-        listHashMap.put(listDataHeader.get(1), tuesday);
-        listHashMap.put(listDataHeader.get(2), wednesday);
-        listHashMap.put(listDataHeader.get(3), thurday);
-        listHashMap.put(listDataHeader.get(4), friday);
-        listHashMap.put(listDataHeader.get(5), saturday);
-        listHashMap.put(listDataHeader.get(6), sunday);
-
 
     }
 

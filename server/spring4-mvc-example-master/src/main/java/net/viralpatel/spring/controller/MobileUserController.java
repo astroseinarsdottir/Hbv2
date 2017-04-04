@@ -21,6 +21,7 @@ import java.util.HashMap;
 import net.viralpatel.spring.service.UserService;
 import net.viralpatel.spring.service.VerifyService;
 import net.viralpatel.spring.service.WorkoutService;
+import org.json.simple.JSONObject;
 
 
 @Controller
@@ -37,7 +38,7 @@ public class MobileUserController extends HttpServlet{
 
 	//Registers new user, redirects to homepage when succesfull
 	@RequestMapping(value = "mobile_register", method = RequestMethod.POST)
-	public @ResponseBody boolean registerPost(HttpServletRequest request, ModelMap model, HttpSession session, @RequestBody HashMap<String,String> register) {
+	public @ResponseBody String registerPost(HttpServletRequest request, HttpSession session, @RequestParam("registerInfo") JSONObject register) {
 
 		//Gets parameters from form
 		String name = register.get("name");
@@ -80,11 +81,11 @@ public class MobileUserController extends HttpServlet{
 		else{
 			userService.createNewUser(name,password,email,username,age,goal,gender,weight,nextUpdate);
 			//workoutService.createNewCycle(user);
-			return true;
+			return "true";
 		}
 
 
-		return false;
+		return "false";
 	}
 
 	//Gets login page

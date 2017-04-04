@@ -37,7 +37,6 @@ net/viralpatel/spring/persistence/repositories/WorkoutRepository$_wentToGym_clos
 net/viralpatel/spring/persistence/repositories/FoodRepository$_getDietPlan_closure2.class
 net/viralpatel/spring/persistence/repositories/WorkoutRepository$_updateSet_closure12.class
 net/viralpatel/spring/persistence/repositories/WorkoutRepository$_getCurrentCycle_closure5.class
-net/viralpatel/spring/controller/MobileUserController.class
 net/viralpatel/spring/persistence/repositories/UserRepository$_updateUser_closure4.class
 net/viralpatel/spring/persistence/repositories/WorkoutRepository$_createCycle_closure2.class
 net/viralpatel/spring/controller/WorkoutController.class

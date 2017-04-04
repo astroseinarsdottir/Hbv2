@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity implements UserNetworker.
 
 
         // User wants to edit his profile, redirected to Update profile page.
-        //test();
+        System.out.println(username);
         userNetworker.getUserProfileInfo(username);
         btn_Edit.setOnClickListener(new View.OnClickListener() {
             @Override

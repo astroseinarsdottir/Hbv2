@@ -26,6 +26,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import networker.WorkoutNetworker;
+import sessions.SessionManager;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -42,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity {
     String[] Descriptions = {"View your exercise program for the week","Insert result for today's exercise"
             ,"View your diet program for the week","View your progress","View your profile"};
 
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ public class HomePageActivity extends AppCompatActivity {
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         Intent intent = new Intent(HomePageActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);

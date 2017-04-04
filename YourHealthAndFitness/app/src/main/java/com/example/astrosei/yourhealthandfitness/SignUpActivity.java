@@ -203,6 +203,8 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
             String username = textUsername.getText().toString();
             session = new SessionManager(getApplicationContext());
 
+            System.out.println("nýr user "+username);
+
             session.createLoginSession(username);
 
             Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();

@@ -29,7 +29,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://130.208.151.228:8181//mobile_login";  //!!!
+    String solviUrl = "http://130.208.151.221:8080//mobile_login";  //!!!
 
 
     public interface loginCallback{
@@ -105,7 +105,7 @@ public class UserNetworker extends AppCompatActivity {
 
     public void getUserProfileInfo(String username) {
 
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181//mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.221:8080//mobile_myProfile?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -131,12 +131,14 @@ public class UserNetworker extends AppCompatActivity {
 
             String tag_json_obj = "json_obj_req";
 
-            JsonObjectRequest request_json = new JsonObjectRequest("http://130.208.151.228:8181/mobile_register", new JSONObject(registerInfo),
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+            JSONObject info = new JSONObject(registerInfo);
 
-                            signUpActivity.checkSignUpSuccess(response.toString());
+            StringRequest request_json = new StringRequest("http://130.208.151.221:8080/mobile_register?registerInfo="+info,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                            signUpActivity.checkSignUpSuccess(response);
 
                         }
                     }, new Response.ErrorListener() {
@@ -147,7 +149,7 @@ public class UserNetworker extends AppCompatActivity {
             });
 
     // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(request_json, tag_json_obj);
+            AppController.getInstance().addToRequestQueue(request_json);
         }
 
 }
