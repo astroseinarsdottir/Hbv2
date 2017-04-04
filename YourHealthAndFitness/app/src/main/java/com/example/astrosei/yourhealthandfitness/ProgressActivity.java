@@ -95,11 +95,6 @@ public class ProgressActivity extends AppCompatActivity implements StatsNetworke
 
     public void getStats(HashMap<String,String> response) {
 
-        for(int i = 0; i < response.size(); i++) {
-            String key = response.entrySet().toString();
-            String value = response.values().toString();
-            System.out.println(value);
-        }
     }
 
 }

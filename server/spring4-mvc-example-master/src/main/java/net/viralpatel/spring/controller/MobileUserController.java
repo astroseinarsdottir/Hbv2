@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.json.JSONObject;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import java.util.HashMap;
 import net.viralpatel.spring.service.UserService;
 import net.viralpatel.spring.service.VerifyService;
 import net.viralpatel.spring.service.WorkoutService;
-import org.json.simple.JSONObject;
 
 
 @Controller
@@ -38,7 +38,7 @@ public class MobileUserController extends HttpServlet{
 
 	//Registers new user, redirects to homepage when succesfull
 	@RequestMapping(value = "mobile_register", method = RequestMethod.POST)
-	public @ResponseBody String registerPost(HttpServletRequest request, HttpSession session, @RequestParam("registerInfo") JSONObject register) {
+	public @ResponseBody JSONObject registerPost(HttpServletRequest request, HttpSession session, @RequestParam("registerInfo") HashMap<String,String> register) {
 
 		//Gets parameters from form
 		String name = register.get("name");
@@ -50,6 +50,7 @@ public class MobileUserController extends HttpServlet{
 		String gender = register.get("gender");
 		String weight = register.get("weight");
 
+		JSONObject ob = new JSONObject();
 		
 		Date date = new Date();
 		String nextUpdate = (String)dateFormat.format(date);
@@ -80,12 +81,13 @@ public class MobileUserController extends HttpServlet{
 		//Redirects to homepage
 		else{
 			userService.createNewUser(name,password,email,username,age,goal,gender,weight,nextUpdate);
+			ob.put("checker","True");
 			//workoutService.createNewCycle(user);
-			return "true";
+			return ob;
 		}
 
-
-		return "false";
+		ob.put("checker","False");
+		return ob;
 	}
 
 	//Gets login page

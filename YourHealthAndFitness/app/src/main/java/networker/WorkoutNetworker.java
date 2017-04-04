@@ -44,7 +44,7 @@ public class WorkoutNetworker {
 
     public void getCurrentCycleRequest(String username) {
 
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.221:8080/mobile_currentCycle?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_currentCycle?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -65,7 +65,6 @@ public class WorkoutNetworker {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    private String URLworkout = "http://130.208.151.228:8181/mobile_workoutOfToday";
 
 
 
