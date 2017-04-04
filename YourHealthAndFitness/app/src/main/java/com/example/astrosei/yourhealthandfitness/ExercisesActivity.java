@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,17 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-public class ExercisesActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+import networker.WorkoutNetworker;
+import sessions.SessionManager;
+
+public class ExercisesActivity extends AppCompatActivity implements WorkoutNetworker.getCurrentCycleCallback{
 
     // For navigation toolbar
     private DrawerLayout drawerLayout;
@@ -27,6 +36,9 @@ public class ExercisesActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ListView listView;
+
+    WorkoutNetworker workoutNetworker = new WorkoutNetworker(this);
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +50,20 @@ public class ExercisesActivity extends AppCompatActivity {
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
         listView = (ListView)findViewById(R.id.listView);
 
+        session = new SessionManager(getApplicationContext());
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        // name
+        String username = user.get(SessionManager.KEY_NAME);
 
+        workoutNetworker.getCurrentCycleRequest(username);
+        /*
         // Set our listView
         String[] dates = {"22/1/2017","23/1/2017","24/1/2017"};
         String[] names = {"Legs", "Hands", "Core"};
         CustomListAdapter customListAdapter = new CustomListAdapter(dates, names);
         listView.setAdapter(customListAdapter);
-
+        */
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Exercises");
@@ -172,6 +191,30 @@ public class ExercisesActivity extends AppCompatActivity {
 
             return convertView;
         }
+    }
+
+    public void getCurrentCycle(JSONArray currCycle){
+        try{
+            JSONObject currCycleObject = (JSONObject) currCycle.get(0);
+            Log.i("------------------",currCycle.get(0).toString());
+            String date = currCycleObject.getString("date");
+            Log.i("------------", date);
+
+            //String[] dates = {"22/1/2017","23/1/2017","24/1/2017"};
+            //String[] names = {"Legs", "Hands", "Core"};
+
+            String[] dates = {date};
+            String[] names = {"Legs"};
+
+            CustomListAdapter customListAdapter = new CustomListAdapter(dates, names);
+            listView.setAdapter(customListAdapter);
+
+
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+
     }
 
 }

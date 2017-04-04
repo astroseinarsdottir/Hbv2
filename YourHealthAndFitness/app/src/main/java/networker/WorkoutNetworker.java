@@ -1,5 +1,6 @@
 package networker;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.TextView;
@@ -18,9 +19,7 @@ import java.util.Date;
 
 import comunicator.AppController;
 
-/**
- * Created by viktor on 24/03/17.
- */
+
 
 public class WorkoutNetworker {
     private static String TAG = WorkoutNetworker.class.getSimpleName();
@@ -31,45 +30,34 @@ public class WorkoutNetworker {
     private String jsonResponse;
     private ProgressDialog pDialog;
 
-    public void makeStatsRequest(String URL) {
-        showpDialog();
 
-        JsonArrayRequest req = new JsonArrayRequest(URL,
+    public interface getCurrentCycleCallback{
+        void getCurrentCycle(JSONArray currCycle);
+    }
+    private WorkoutNetworker.getCurrentCycleCallback exercisesActivity;
+
+    public WorkoutNetworker(Activity activity){
+
+        exercisesActivity = (WorkoutNetworker.getCurrentCycleCallback)activity;
+    }
+
+
+    public void getCurrentCycleRequest(String username) {
+
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_currentCycle?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
 
-                        try {
-                            // Parsing json array response
-                            // loop through each json object
-                            jsonResponse = "";
-                            for (int i = 0; i < response.length(); i++) {
+                        JSONArray cycleArray = response;
+                        exercisesActivity.getCurrentCycle(cycleArray);
 
-                                JSONObject stats = (JSONObject) response
-                                        .get(i);
-
-                                String date = stats.getString("date");
-                                String average = stats.getString("average");
-                                jsonResponse += "Date: " + date + "\n\n";
-                                jsonResponse += "Average: " + average + "\n\n";
-
-
-                            }
-
-                            txtResponse.setText(jsonResponse);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        hidepDialog();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hidepDialog();
             }
         });
 
@@ -79,55 +67,6 @@ public class WorkoutNetworker {
 
     private String URLworkout = "http://130.208.151.228:8181/mobile_workoutOfToday";
 
-    public void getWorkoutofToDay(String username) {
-        showpDialog();
-        Date ComplexDate = new Date();
-        String date = SimpleDate.format(ComplexDate);
-        JsonArrayRequest req = new JsonArrayRequest(URLworkout+"?username="+username+"&date="+date,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-
-                        try {
-                            // Parsing json array response
-                            // loop through each json object
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject stats = (JSONObject) response
-                                        .get(i);
-
-                                String date = stats.getString("date");
-                                String average = stats.getString("average");
 
 
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        hidepDialog();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hidepDialog();
-            }
-        });
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(req);
-    }
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hidepDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 }

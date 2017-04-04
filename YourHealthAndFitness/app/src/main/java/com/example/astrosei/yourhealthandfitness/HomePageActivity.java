@@ -25,6 +25,8 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import networker.WorkoutNetworker;
+
 public class HomePageActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -39,6 +41,7 @@ public class HomePageActivity extends AppCompatActivity {
     String[] Titles = {"Exercise Program","Update Today","Diet Journal","Progress","Profile"};
     String[] Descriptions = {"View your exercise program for the week","Insert result for today's exercise"
             ,"View your diet program for the week","View your progress","View your profile"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -36,20 +36,20 @@ public class MobileWorkoutController extends HttpServlet{
 
 
 	//Show user the whole workout for a specific day.
-	@RequestMapping(value = "mobile_workoutOfToday", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Exercises> getSpecificDayGet(HttpSession session, @RequestParam("username") String username, @RequestParam("date") String date){
+	@RequestMapping(value = "mobile_currentCycle", method = RequestMethod.GET)
+	public @ResponseBody ArrayList<Day> getSpecificDayGet(HttpSession session, @RequestParam("username") String username){
 		//Checks if user is logged in
-		if(session.getAttribute("username") == username){
+		
 			
-			Day day = workoutService.getSpecificDay(username, date);
+			//Day day = workoutService.getSpecificDay(username, date);
 
 			//Input information from day into view.
-			ArrayList<Exercises> exercises = day.getExercises();
+			//ArrayList<Exercises> exercises = day.getExercises();
+		ArrayList<Day> cycle = workoutService.getCurrentCycle(username);
 
-			return exercises;
-		}
+		return cycle;
+		
 
-		return null;
 	}
 
 	//Adds to database the weights that user lifted on that specific day
