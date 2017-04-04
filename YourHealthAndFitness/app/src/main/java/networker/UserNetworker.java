@@ -29,7 +29,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://130.208.151.221:8080//mobile_login";  //!!!
+    String solviUrl = "http://192.168.122.1:8080//mobile_login";  //!!!
 
 
     public interface loginCallback{
@@ -105,7 +105,7 @@ public class UserNetworker extends AppCompatActivity {
 
     public void getUserProfileInfo(String username) {
 
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.221:8080//mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080//mobile_myProfile?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -133,12 +133,18 @@ public class UserNetworker extends AppCompatActivity {
 
             JSONObject info = new JSONObject(registerInfo);
 
-            StringRequest request_json = new StringRequest("http://130.208.151.221:8080/mobile_register?registerInfo="+info,
-                    new Response.Listener<String>() {
+            JsonObjectRequest request_json = new JsonObjectRequest("http://192.168.122.1:8080/mobile_register",new JSONObject(registerInfo),
+                    new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
 
-                            signUpActivity.checkSignUpSuccess(response);
+                            System.out.println("------------dksjfbskdjbfkjsbdfkb++++++++++++++--------------");
+                            try {
+                                String respon = response.getString("checker");
+                                signUpActivity.checkSignUpSuccess(respon);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                         }
                     }, new Response.ErrorListener() {

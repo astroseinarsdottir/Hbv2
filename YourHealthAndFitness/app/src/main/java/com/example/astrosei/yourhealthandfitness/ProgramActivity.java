@@ -23,6 +23,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -162,53 +164,106 @@ public class ProgramActivity extends AppCompatActivity implements ProgramNetwork
         header.addView(weights);
 
         tableLayout.addView(header);
+/*
+        TableRow exerciseName = new TableRow(this);
+        TextView nameText = new TextView(this);
+
+        nameText.setText("utan if IF");
+
+        nameText.setPadding(20,10,20,10);
+        nameText.setTextSize(14);
+        exerciseName.addView(nameText);
+        tableLayout.addView(exerciseName);
+*/
+
+
 
         for (int i = 0; i < currCycle.length(); i++) {
 
             // Set the name of an exercise alone row.
-            TableRow exerciseName = new TableRow(this);
-            TextView nameText = new TextView(this);
-            nameText.setText("Exercise name");
-            nameText.setPadding(20,10,20,10);
-            nameText.setTextSize(14);
-            exerciseName.addView(nameText);
-            tableLayout.addView(exerciseName);
 
-            // Add sets, reps and suggested weight.
-            for(int j = 0; j < 4; j++){
+            try{
 
-                TableRow exercise = new TableRow(this);
+                //TableRow exerciseName = new TableRow(this);
+                //TextView nameText = new TextView(this);
 
-                TextView empty = new TextView(this);
-                empty.setGravity(Gravity.CENTER);
-                empty.setText("");
-                empty.setPadding(20,5,20,5);
-                empty.setTextSize(14);
-                exercise.addView(empty);
+                JSONObject dayObject = (JSONObject) currCycle.get(i);
 
-                TextView setNr = new TextView(this);
-                setNr.setGravity(Gravity.CENTER);
-                setNr.setText("set "+i);
-                setNr.setPadding(20,5,20,5);
-                setNr.setTextSize(14);
-                exercise.addView(setNr);
+                if(dayObject.getString("date").equalsIgnoreCase(date)) {
+                    Log.i(dayObject.getString("date"), date + "--------------------------------");
+                    JSONArray exercisesArray = dayObject.getJSONArray("exercises");
+                    Log.i(exercisesArray.toString(),"0000000000000000000");
 
-                TextView rep = new TextView(this);
-                rep.setGravity(Gravity.CENTER);
-                rep.setText("rep " +i);
-                rep.setPadding(20,5,20,5);
-                rep.setTextSize(14);
-                exercise.addView(rep);
+                    //JSONObject exerciseOBJECTTEST = (JSONObject) exercisesArray.get(0);
 
-                TextView weight = new TextView(this);
-                weight.setGravity(Gravity.CENTER);
-                weight.setText("weight "+ i);
-                weight.setPadding(20,5,20,5);
-                weight.setTextSize(14);
-                exercise.addView(weight);
 
-                tableLayout.addView(exercise);
+                    for(int u = 0; u< exercisesArray.length(); u++){
+                        JSONObject exerciseOBJECT = (JSONObject) exercisesArray.get(u);
 
+                        String exerciseNNAMEBITS = exerciseOBJECT.getString("name");
+
+
+                        TableRow exerciseName = new TableRow(this);
+                        TextView nameText = new TextView(this);
+
+                        nameText.setText(exerciseNNAMEBITS);
+
+                        nameText.setPadding(20,10,20,10);
+                        nameText.setTextSize(14);
+                        exerciseName.addView(nameText);
+                        tableLayout.addView(exerciseName);
+
+                        JSONArray setArray = exerciseOBJECT.getJSONArray("set");
+
+                        // Add sets, reps and suggested weight.
+                        for(int j = 0; j < setArray.length(); j++) {
+
+                            TableRow exercise = new TableRow(this);
+
+                            TextView empty = new TextView(this);
+                            empty.setGravity(Gravity.CENTER);
+                            empty.setText("");
+                            empty.setPadding(20, 5, 20, 5);
+                            empty.setTextSize(14);
+                            exercise.addView(empty);
+
+                            JSONObject setOBJECT = (JSONObject) setArray.get(j);
+
+                            String setNumber = setOBJECT.getString("number");
+
+                            TextView setNr = new TextView(this);
+                            setNr.setGravity(Gravity.CENTER);
+                            setNr.setText("set " + setNumber);
+                            setNr.setPadding(20, 5, 20, 5);
+                            setNr.setTextSize(14);
+                            exercise.addView(setNr);
+
+                            String repNumber = setOBJECT.getString("rep");
+
+                            TextView rep = new TextView(this);
+                            rep.setGravity(Gravity.CENTER);
+                            rep.setText("rep " + repNumber);
+                            rep.setPadding(20, 5, 20, 5);
+                            rep.setTextSize(14);
+                            exercise.addView(rep);
+
+                            TextView weight = new TextView(this);
+                            weight.setGravity(Gravity.CENTER);
+                            weight.setText("weight " + i);
+                            weight.setPadding(20, 5, 20, 5);
+                            weight.setTextSize(14);
+                            exercise.addView(weight);
+
+                            tableLayout.addView(exercise);
+                        }
+
+                    }
+
+                }
+
+            }
+            catch(JSONException e){
+                e.printStackTrace();
             }
 
         }

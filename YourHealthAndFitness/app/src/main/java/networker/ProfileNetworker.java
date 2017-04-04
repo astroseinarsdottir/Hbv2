@@ -28,7 +28,7 @@ public class ProfileNetworker {
 
     public void getUserProfileInfo(String username) {
 
-        JsonArrayRequest req = new JsonArrayRequest("130.208.151.221:8080/mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("130.208.151.228:8181/mobile_myProfile?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {

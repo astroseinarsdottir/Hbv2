@@ -38,7 +38,7 @@ public class StatsNetworker extends AppCompatActivity {
 
     public void getStatistics(String username, String goal) {
         int id = 1;
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.221:8080/mobile_stats?username="+username+"&id="+id+"&goal="+goal,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_stats?username="+username+"&id="+id+"&goal="+goal,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
