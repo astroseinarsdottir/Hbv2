@@ -55,8 +55,8 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
         textWeight = (EditText)findViewById(R.id.text_Weight);
         btnSignUp = (Button)findViewById(R.id.btn_SignUp);
 
-        goals = new String[]{"Stronger","Buffer", "Leaner"};
-        genders = new String[]{"Male", "Female"};
+        goals = new String[]{"stronger","buffer", "leaner"};
+        genders = new String[]{"male", "female"};
 
         // Create an ArrayAdapter and add the list of goals to it.
         goalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goals);

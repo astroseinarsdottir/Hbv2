@@ -13,7 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class ProgressActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+import networker.StatsNetworker;
+
+public class ProgressActivity extends AppCompatActivity implements StatsNetworker.statsCallback{
 
     // For navigation toolbar
     private DrawerLayout drawerLayout;
@@ -21,6 +25,7 @@ public class ProgressActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Button vizutest;
+    StatsNetworker statsNetworker = new StatsNetworker(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,9 @@ public class ProgressActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
         vizutest = (Button)findViewById(R.id.vizutest);
-
+        String username = "sol";
+        String goal = "stronger";
+        statsNetworker.getStatistics(username,goal);
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Progress");
@@ -85,4 +92,14 @@ public class ProgressActivity extends AppCompatActivity {
 
         actionBarDrawerToggle.syncState();
     }
+
+    public void getStats(HashMap<String,String> response) {
+
+        for(int i = 0; i < response.size(); i++) {
+            String key = response.entrySet().toString();
+            String value = response.values().toString();
+            System.out.println(value);
+        }
+    }
+
 }

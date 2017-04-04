@@ -95,13 +95,9 @@ public class MobileWorkoutController extends HttpServlet{
 	public @ResponseBody ArrayList<Stats> publishStatsPost(HttpSession session, @RequestParam("username") String username, 
 		@RequestParam("id") int id, @RequestParam("goal") String goal){
 
-			if(session.getAttribute("username") == username){
 			
-						ArrayList<Stats> stats = (ArrayList<Stats>) statsService.getAveragePerDay(username, id, goal);
-				return stats;
-			}
-
-		return null;
+			ArrayList<Stats> stats = (ArrayList<Stats>) statsService.getAveragePerDay(username, id, goal);
+			return stats;
 
 	}
 }
