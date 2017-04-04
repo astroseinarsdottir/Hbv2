@@ -247,9 +247,11 @@ public class ProgramActivity extends AppCompatActivity implements ProgramNetwork
                             rep.setTextSize(14);
                             exercise.addView(rep);
 
+                            String weightNumber = setOBJECT.getString("weight");
+
                             TextView weight = new TextView(this);
                             weight.setGravity(Gravity.CENTER);
-                            weight.setText("weight " + i);
+                            weight.setText("weight " + weightNumber);
                             weight.setPadding(20, 5, 20, 5);
                             weight.setTextSize(14);
                             exercise.addView(weight);
