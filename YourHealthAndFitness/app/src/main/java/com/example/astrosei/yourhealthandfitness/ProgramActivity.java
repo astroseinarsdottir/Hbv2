@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class ProgramActivity extends AppCompatActivity {
+import org.json.JSONArray;
+
+import java.util.HashMap;
+
+import networker.ProgramNetworker;
+import sessions.SessionManager;
+
+public class ProgramActivity extends AppCompatActivity implements ProgramNetworker.getCurrentCycleCallBackForProgram{
 
     // For navigation toolbar
     private DrawerLayout drawerLayout;
@@ -31,8 +39,11 @@ public class ProgramActivity extends AppCompatActivity {
     private TextView textView;
     private Button btn_Result;
 
+    ProgramNetworker programNetworker = new ProgramNetworker(this);
     // For program table
     private TableLayout tableLayout;
+
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +58,18 @@ public class ProgramActivity extends AppCompatActivity {
 
         // Date of the program
         final String date = getIntent().getStringExtra("exerciseDate");
+        Log.i(date, "---------------------");
+        if(date.equalsIgnoreCase("24/11/2016")){
+            Log.i(date, "---------------------+++++++++++++++++++++++++++");
+        }
 
         // Get program
-        initTableData();
+        session = new SessionManager(getApplicationContext());
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        // name
+        String username = user.get(SessionManager.KEY_NAME);
+        programNetworker.getCurrentCycleRequest(username, date);
 
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
@@ -108,7 +128,7 @@ public class ProgramActivity extends AppCompatActivity {
     }
 
     // Inputs data into table
-    public void initTableData() {
+    public void initTableData(JSONArray currCycle, String date) {
 
         // Create header row.
         TableRow header = new TableRow(this);
@@ -143,7 +163,7 @@ public class ProgramActivity extends AppCompatActivity {
 
         tableLayout.addView(header);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < currCycle.length(); i++) {
 
             // Set the name of an exercise alone row.
             TableRow exerciseName = new TableRow(this);
