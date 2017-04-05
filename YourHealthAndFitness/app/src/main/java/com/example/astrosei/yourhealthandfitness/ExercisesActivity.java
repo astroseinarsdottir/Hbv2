@@ -195,16 +195,24 @@ public class ExercisesActivity extends AppCompatActivity implements WorkoutNetwo
 
     public void getCurrentCycle(JSONArray currCycle){
         try{
-            JSONObject currCycleObject = (JSONObject) currCycle.get(0);
+            JSONObject legDayObject = (JSONObject) currCycle.get(4);
+            JSONObject chestDayObject = (JSONObject) currCycle.get(3);
+            JSONObject backDayObject = (JSONObject) currCycle.get(2);
+            JSONObject shoulderDayObject = (JSONObject) currCycle.get(1);
+            JSONObject handsDayObject = (JSONObject) currCycle.get(0);
             Log.i("------------------",currCycle.get(0).toString());
-            String date = currCycleObject.getString("date");
-            Log.i("------------", date);
+            String legDayDate = legDayObject.getString("date");
+            String chestDayDate = chestDayObject.getString("date");
+            String backDayDate = backDayObject.getString("date");
+            String shoulderDayDate = shoulderDayObject.getString("date");
+            String handsDayDate = handsDayObject.getString("date");
+
 
             //String[] dates = {"22/1/2017","23/1/2017","24/1/2017"};
             //String[] names = {"Legs", "Hands", "Core"};
 
-            String[] dates = {date};
-            String[] names = {"Legs"};
+            String[] dates = {legDayDate, chestDayDate, backDayDate, shoulderDayDate, handsDayDate};
+            String[] names = {"Legs", "Chest", "Back", "Shoulders", "Hands"};
 
             CustomListAdapter customListAdapter = new CustomListAdapter(dates, names);
             listView.setAdapter(customListAdapter);

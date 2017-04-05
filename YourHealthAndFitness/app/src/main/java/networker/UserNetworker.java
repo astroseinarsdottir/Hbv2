@@ -40,7 +40,11 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
+<<<<<<< HEAD
     String solviUrl = "http://192.168.1.138:8181//mobile_login";  //!!!
+=======
+    String solviUrl = "http://192.168.122.1:8080//mobile_login";  //!!!
+>>>>>>> 4e7526bea50f5e367c095ef416dd42b79f549266
 
 
     public interface loginCallback{
@@ -116,7 +120,11 @@ public class UserNetworker extends AppCompatActivity {
 
     public void getUserProfileInfo(String username) {
 
+<<<<<<< HEAD
         JsonArrayRequest req = new JsonArrayRequest("http://192.168.1.138:8181//mobile_myProfile?username="+username,
+=======
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080//mobile_myProfile?username="+username,
+>>>>>>> 4e7526bea50f5e367c095ef416dd42b79f549266
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -144,7 +152,11 @@ public class UserNetworker extends AppCompatActivity {
 
             JSONObject info = new JSONObject(registerInfo);
 
+<<<<<<< HEAD
             JsonObjectRequest request_json = new JsonObjectRequest("http://130.208.151.228:8181/mobile_register",info,
+=======
+            JsonObjectRequest request_json = new JsonObjectRequest("http://192.168.122.1:8080/mobile_register",new JSONObject(registerInfo),
+>>>>>>> 4e7526bea50f5e367c095ef416dd42b79f549266
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

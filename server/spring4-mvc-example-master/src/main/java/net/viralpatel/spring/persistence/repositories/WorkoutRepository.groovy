@@ -72,8 +72,13 @@ public class WorkoutRepository {
 			workoutDay.exercise.each{it ->
 				ArrayList<Set> sets = new ArrayList<Set>()
 				it.set.each{iterator ->
-					Set set = new Set(iterator.reps.text().toInteger(), null, iterator.@id.toInteger() )
-					sets.add(set)
+					if(iterator.dbWeight[0] != null){
+						Set set = new Set(iterator.reps.text().toInteger(), iterator.dbWeight.text().toDouble(), iterator.@id.toInteger() )
+						sets.add(set)
+					}else{
+						Set set = new Set(iterator.reps.text().toInteger(), 0, iterator.@id.toInteger() )
+						sets.add(set)
+					}
 				}
 				Exercises exercise = new Exercises( it.name.text(), sets, it.@id.toInteger() )
 				exercises.add(exercise)

@@ -38,8 +38,14 @@ public class MobileUserController extends HttpServlet{
 
 	//Registers new user, redirects to homepage when succesfull
 	@RequestMapping(value = "mobile_register", method = RequestMethod.POST)
+<<<<<<< HEAD
 	public @ResponseBody String registerPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> register) {
 		System.out.print(register);
+=======
+	public @ResponseBody JSONObject registerPost(HttpServletRequest request, HttpSession session, @RequestParam("registerInfo") HashMap<String,String> register) {
+
+		System.out.println(register);
+>>>>>>> 4e7526bea50f5e367c095ef416dd42b79f549266
 		//Gets parameters from form
 		String name = register.get("name");
 		String password	= register.get("password");
