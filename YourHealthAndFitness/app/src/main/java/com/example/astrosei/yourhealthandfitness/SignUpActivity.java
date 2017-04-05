@@ -183,7 +183,7 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
         registerInfo.put("goal",goal);
         registerInfo.put("gender",gender);
 
-        userNetworker.register(registerInfo);
+        userNetworker.stringrequest(registerInfo);
 
         // Check if username is available
         // Enter user into database

@@ -38,8 +38,8 @@ public class MobileUserController extends HttpServlet{
 
 	//Registers new user, redirects to homepage when succesfull
 	@RequestMapping(value = "mobile_register", method = RequestMethod.POST)
-	public @ResponseBody JSONObject registerPost(HttpServletRequest request, HttpSession session, @RequestParam("registerInfo") HashMap<String,String> register) {
-
+	public @ResponseBody String registerPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> register) {
+		System.out.print(register);
 		//Gets parameters from form
 		String name = register.get("name");
 		String password	= register.get("password");
@@ -50,7 +50,7 @@ public class MobileUserController extends HttpServlet{
 		String gender = register.get("gender");
 		String weight = register.get("weight");
 
-		JSONObject ob = new JSONObject();
+		ArrayList<String> ob = new ArrayList<String>();
 		
 		Date date = new Date();
 		String nextUpdate = (String)dateFormat.format(date);
@@ -64,30 +64,37 @@ public class MobileUserController extends HttpServlet{
 			
 			if(!verifyService.verifyName(name)){
 				error.add("Invalid name");
+				System.out.print("name");
+
 			}
 			if(!verifyService.verifyUsername(username)){
 				error.add("Invalid username");
+				System.out.print("username");
 			}
 			if(!verifyService.verifyPass(password)){
 				error.add("Password must be at least six characters");
+				System.out.print("pass");
 			}
 			if(!verifyService.verifyEmail(email)){
 				error.add("Invalid email");
+				System.out.print("email");
 			}
 			if(!verifyService.verifyWeight(weight)){
 				error.add("Invalid weight");
+				System.out.print("weight");
 			}
 		}
 		//Redirects to homepage
 		else{
+			System.out.print("gera");
 			userService.createNewUser(name,password,email,username,age,goal,gender,weight,nextUpdate);
-			ob.put("checker","True");
+			ob.add("true");
 			//workoutService.createNewCycle(user);
-			return ob;
+			return "true";
 		}
-
-		ob.put("checker","False");
-		return ob;
+		System.out.print("endir");
+		ob.add("False");
+		return "false";
 	}
 
 	//Gets login page

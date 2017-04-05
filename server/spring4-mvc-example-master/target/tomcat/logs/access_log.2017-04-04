@@ -1,3 +1,0 @@
-130.208.151.228 - - [04/Apr/2017:17:09:24 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8181-exec-1 586
-130.208.151.228 - - [04/Apr/2017:17:24:32 +0000] "GET //mobile_myProfile?username=null HTTP/1.1" 200 - http-bio-8181-exec-4 460
-130.208.151.228 - - [04/Apr/2017:17:33:12 +0000] "POST /mobile_register HTTP/1.1" 400 1080 http-bio-8181-exec-6 185
