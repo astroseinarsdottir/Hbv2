@@ -27,10 +27,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import networker.PostWeightsNetworker;
 import networker.UpdateExerciseNetworker;
 import sessions.SessionManager;
 
@@ -52,8 +54,10 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
     private EditText editText;
 
     private Button btn_Submit;
-
+    public int numberOfInputs = 0;
     SessionManager session;
+
+    PostWeightsNetworker postWeightsNetworker = new PostWeightsNetworker();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +104,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
             @Override
             public void onClick(View v) {
 
-                //submit(numberOfInputs);
+                submit();
                 Intent intent = new Intent(UpdateExerciseOfTodayActivity.this,HomePageActivity.class);
                 startActivity(intent);
             }
@@ -278,6 +282,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
 
                             // So the id for the weights are unique.
                             id++;
+                            numberOfInputs++;
                         }
 
                     }
@@ -294,14 +299,32 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
         //return id;
 
 
-    // Puts the weights that the user submited into database.
-    public void submit(int numberOfInputs){
 
+
+    // Puts the weights that the user submited into database.
+    public void submit(){
+        ArrayList<Double> weightdouble = new ArrayList<>();
         // Fetch input from editText fields and add them to object.
         for(int i = 0; i< numberOfInputs; i++) {
             editText = (EditText) findViewById(i);
             String weight = editText.getText().toString();
             //Add to object, not implemented.
+            weightdouble.add(Double.parseDouble(weight));
+
+            System.out.println(i + "-------"+ weight);
         }
+        // Date of the program
+        String date = getIntent().getStringExtra("exerciseDate");
+
+        // Get program
+        session = new SessionManager(getApplicationContext());
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        // name
+        String username = user.get(SessionManager.KEY_NAME);
+
+        postWeightsNetworker.updateWeights(weightdouble, username, date);
+
+
     }
 }
