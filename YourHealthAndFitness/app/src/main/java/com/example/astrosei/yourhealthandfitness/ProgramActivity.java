@@ -235,7 +235,7 @@ public class ProgramActivity extends AppCompatActivity implements ProgramNetwork
 
                             TextView setNr = new TextView(this);
                             setNr.setGravity(Gravity.CENTER);
-                            setNr.setText("set " + setNumber);
+                            setNr.setText(setNumber);
                             setNr.setPadding(20, 5, 20, 5);
                             setNr.setTextSize(14);
                             exercise.addView(setNr);
@@ -244,7 +244,7 @@ public class ProgramActivity extends AppCompatActivity implements ProgramNetwork
 
                             TextView rep = new TextView(this);
                             rep.setGravity(Gravity.CENTER);
-                            rep.setText("rep " + repNumber);
+                            rep.setText( repNumber);
                             rep.setPadding(20, 5, 20, 5);
                             rep.setTextSize(14);
                             exercise.addView(rep);
@@ -253,7 +253,7 @@ public class ProgramActivity extends AppCompatActivity implements ProgramNetwork
 
                             TextView weight = new TextView(this);
                             weight.setGravity(Gravity.CENTER);
-                            weight.setText("weight " + weightNumber);
+                            weight.setText(weightNumber);
                             weight.setPadding(20, 5, 20, 5);
                             weight.setTextSize(14);
                             exercise.addView(weight);
