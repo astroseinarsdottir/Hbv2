@@ -83,7 +83,7 @@ public class UserService{
 	
 	//Updates user info
 	public void updateUser(User user){
-
+		System.out.print("____UPDATE===SERVICE_____");
 		userRepository.updateUser(user);
 	}
 

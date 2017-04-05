@@ -84,7 +84,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
             Date todaysdate = c.getTime();
             String todaysdatestring = dateFormat.format(todaysdate);
             getSupportActionBar().setTitle(todaysdatestring);
-            updateExerciseNetworker.getCurrentCycleRequest(username, "04/04/2017");
+            updateExerciseNetworker.getCurrentCycleRequest(username, "05/04/2017");
 
         }
         else{
