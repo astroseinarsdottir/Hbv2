@@ -54,21 +54,14 @@ public class MobileWorkoutController extends HttpServlet{
 
 	//Adds to database the weights that user lifted on that specific day
 	@RequestMapping(value = "mobile_workoutOfToday", method= RequestMethod.POST)
-	public @ResponseBody Boolean getSpecificDayPost(HttpSession session, @RequestBody Day day){
+	public @ResponseBody Boolean getSpecificDayPost(HttpSession session, @RequestParam("username") String username, @RequestParam("date") String date
+		,@RequestBody ArrayList<Double> weights){
 
-		String username = (String)session.getAttribute("username");
-		String date = (String)session.getAttribute("date");
-		int numberOfInputs = (Integer)session.getAttribute("numberOfInputs");
-		//day = workoutService.getSpecificDay(username,date);
+		Day day = workoutService.getSpecificDay(username,date);
 		ArrayList<Exercises> exercises = day.getExercises();
 		ArrayList<Double> inputs = new ArrayList<Double>();
 
 
-		//Gets weights inputs from user
-		for(int i=1; i<=numberOfInputs;i++){
-			String number = Integer.toString(i);
-			//inputs.add(Double.parseDouble(request.getParameter(number)));
-		}
 
 		//Adds input into day object.
 		int index = 0;
@@ -77,7 +70,7 @@ public class MobileWorkoutController extends HttpServlet{
 			ArrayList<Set> sets = exercise.getSet();
 			for(int j=0; j<sets.size();j++){
 				Set set = sets.get(j);
-				Double input = inputs.get(index);
+				Double input = weights.get(index);
 				set.setWeight(input);
 				index++;
 			}
