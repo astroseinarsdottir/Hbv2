@@ -5811,7 +5811,7 @@ $OX6+movh3KsnftjmVaGL138Agra2LXzvOsqDN48GPhM=
 $iqAtTZlCMIwxfinoMAKPcl8nq/kUJRUJ1RlZC/xjvak=
 </password>
     <email>sol@sol.is</email>
-    <age>92</age>
+    <age>22</age>
     <goal>stronger</goal>
     <gender>male</gender>
     <userWeight>22.0</userWeight>
@@ -5822,65 +5822,83 @@ $iqAtTZlCMIwxfinoMAKPcl8nq/kUJRUJ1RlZC/xjvak=
           <name>Squats</name>
           <set id="1">
             <reps>3</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="2">
             <reps>3</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="3">
             <reps>3</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="4">
             <reps>3</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="5">
             <reps>3</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
         </exercise>
         <exercise id="2">
           <name>Seated Leg Press</name>
           <set id="1">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="2">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="3">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="4">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
         </exercise>
         <exercise id="3">
           <name>Romaian Deadlift</name>
           <set id="1">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="2">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="3">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="4">
             <reps>6</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
         </exercise>
         <exercise id="4">
           <name>Lunges</name>
           <set id="1">
             <reps>10</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="2">
             <reps>10</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="3">
             <reps>10</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
           <set id="4">
             <reps>10</reps>
+            <dbWeight>4.0</dbWeight>
           </set>
         </exercise>
+        <wentToGym>true</wentToGym>
       </day>
       <day id="2" Date="06/04/2017" Goal="stronger">
         <exercise id="1">

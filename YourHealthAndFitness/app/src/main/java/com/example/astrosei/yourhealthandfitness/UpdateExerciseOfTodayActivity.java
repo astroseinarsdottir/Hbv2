@@ -57,6 +57,8 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
     public int numberOfInputs = 0;
     SessionManager session;
 
+    public String theDate;
+
     PostWeightsNetworker postWeightsNetworker = new PostWeightsNetworker();
 
     @Override
@@ -70,8 +72,8 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
         btn_Submit = (Button)findViewById(R.id.btn_Submit);
 
         // Date of the program
-        String date = getIntent().getStringExtra("exerciseDate");
-
+        final String date = getIntent().getStringExtra("exerciseDate");
+        theDate=date;
         // Get program
         session = new SessionManager(getApplicationContext());
         // get user data from session
@@ -88,7 +90,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
             Date todaysdate = c.getTime();
             String todaysdatestring = dateFormat.format(todaysdate);
             getSupportActionBar().setTitle(todaysdatestring);
-            updateExerciseNetworker.getCurrentCycleRequest(username, "05/04/2017");
+            updateExerciseNetworker.getCurrentCycleRequest(username, todaysdatestring);
 
         }
         else{
@@ -103,8 +105,15 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
         btn_Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                submit();
+                if(date==null){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Calendar c = Calendar.getInstance();
+                    Date todaysdate = c.getTime();
+                    String todaysdatestring = dateFormat.format(todaysdate);
+                    submit(todaysdatestring);
+                }else{
+                    submit(date);
+                }
                 Intent intent = new Intent(UpdateExerciseOfTodayActivity.this,HomePageActivity.class);
                 startActivity(intent);
             }
@@ -302,7 +311,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
 
 
     // Puts the weights that the user submited into database.
-    public void submit(){
+    public void submit(String date){
         ArrayList<Double> weightdouble = new ArrayList<>();
         // Fetch input from editText fields and add them to object.
         for(int i = 0; i< numberOfInputs; i++) {
@@ -314,7 +323,7 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
             System.out.println(i + "-------"+ weight);
         }
         // Date of the program
-        String date = getIntent().getStringExtra("exerciseDate");
+        //String date = getIntent().getStringExtra("exerciseDate");
 
         // Get program
         session = new SessionManager(getApplicationContext());

@@ -31,7 +31,7 @@ public class PostWeightsNetworker {
         //JSONObject jsonBody = new JSONObject(weights);
         final String requestBody = weights.toString();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.122.1:8080/mobile_updateUser?username="+username+"&date="+date, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.122.1:8080/mobile_workoutOfToday?username="+username+"&date="+date, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", response);

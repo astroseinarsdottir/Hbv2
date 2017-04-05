@@ -86,8 +86,8 @@ public class HomePageActivity extends AppCompatActivity {
                         // Logout user, not fully implemented.
                         session = new SessionManager(getApplicationContext());
                         session.logoutUser();
-                        Intent intent = new Intent(HomePageActivity.this, IndexActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(HomePageActivity.this, IndexActivity.class);
+                        //startActivity(intent);
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
