@@ -35,17 +35,58 @@ public class MobileUserController extends HttpServlet{
 	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
+	@RequestMapping(value = "mobile_checkIfValid", method = RequestMethod.GET)
+
+	public @ResponseBody ArrayList registerPost(HttpServletRequest request, HttpSession session, @RequestParam("username") String username, @RequestParam("password") String password
+		, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("weight") String weight, @RequestParam("age") String age) {
+		System.out.print("------CHECKS__IF__VALID");
+		ArrayList ob = new ArrayList();
+		ArrayList error = new ArrayList();
+
+		//User user = new User(name,password,email,Integer.parseInt(age),username,goal,gender,Double.parseDouble(weight),nextUpdate);
+
+		//Verifies if parameters are in the correct format
+		if(!verifyService.verifyName(name)||!verifyService.verifyUsername(username)||
+			!verifyService.verifyPass(password)||!verifyService.verifyEmail(email)||!verifyService.verifyWeight(weight)){
+			System.out.print("------CHECKS__IF__ERROR");
+			if(!verifyService.verifyName(name)){
+				error.add("Invalid name");
+				System.out.print("name");
+
+			}
+			if(!verifyService.verifyUsername(username)){
+				error.add("Invalid username");
+				System.out.print("username");
+			}
+			if(!verifyService.verifyPass(password)){
+				error.add("Password must be at least six characters");
+				System.out.print("pass");
+			}
+			if(!verifyService.verifyEmail(email)){
+				error.add("Invalid email");
+				System.out.print("email");
+			}
+			if(!verifyService.verifyWeight(weight)){
+				error.add("Invalid weight");
+				System.out.print("weight");
+			}
+		}
+		//Redirects to homepage
+		else{
+			ob.add("Succesfull");
+			System.out.print("------CHECKS__IF__SUCCESS");
+			return ob;
+		}
+		
+		return error;
+	}
+
 
 	//Registers new user, redirects to homepage when succesfull
 	@RequestMapping(value = "mobile_register", method = RequestMethod.POST)
-<<<<<<< HEAD
-	public @ResponseBody String registerPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> register) {
-		System.out.print(register);
-=======
-	public @ResponseBody JSONObject registerPost(HttpServletRequest request, HttpSession session, @RequestParam("registerInfo") HashMap<String,String> register) {
 
-		System.out.println(register);
->>>>>>> 4e7526bea50f5e367c095ef416dd42b79f549266
+	public @ResponseBody String registerPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> register) {
+		
 		//Gets parameters from form
 		String name = register.get("name");
 		String password	= register.get("password");
@@ -100,7 +141,7 @@ public class MobileUserController extends HttpServlet{
 		}
 		System.out.print("endir");
 		ob.add("False");
-		return "false";
+		return null;
 	}
 
 	//Gets login page
@@ -122,7 +163,7 @@ public class MobileUserController extends HttpServlet{
 	//Gets the user profile page
 	@RequestMapping(value = "mobile_myProfile", method = RequestMethod.GET)
 	public @ResponseBody ArrayList myProfileGet(HttpSession session, @RequestParam("username") String username){
-		
+
 		ArrayList user = userService.findUser(username);
 			
 		return user;

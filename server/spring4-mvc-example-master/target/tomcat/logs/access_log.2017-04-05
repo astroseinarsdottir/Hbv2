@@ -1,5 +1,5 @@
-130.208.151.228 - - [05/Apr/2017:11:25:25 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-2 1515
-130.208.151.228 - - [05/Apr/2017:11:25:25 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-1 3684
-130.208.151.228 - - [05/Apr/2017:11:34:33 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-5 739
-130.208.151.228 - - [05/Apr/2017:11:42:46 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-7 790
-130.208.151.228 - - [05/Apr/2017:11:52:42 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-9 610
+130.208.151.228 - - [05/Apr/2017:15:31:57 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@comi.com&password=123456&age=26&weight=99 HTTP/1.1" 200 18 http-bio-8181-exec-1 948
+130.208.151.228 - - [05/Apr/2017:15:35:59 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 18 http-bio-8181-exec-3 201
+130.208.151.228 - - [05/Apr/2017:15:36:01 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-4 1471
+130.208.151.228 - - [05/Apr/2017:15:36:06 +0000] "GET /mobile_myProfile?username=auli HTTP/1.1" 200 75 http-bio-8181-exec-5 173
+130.208.151.228 - - [05/Apr/2017:15:37:11 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-7 69

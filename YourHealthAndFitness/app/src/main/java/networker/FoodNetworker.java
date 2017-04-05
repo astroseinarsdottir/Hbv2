@@ -46,7 +46,7 @@ public class FoodNetworker {
     public void getDietPlan(String name) {
 
 
-        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_foodPlan?username="+name,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_foodPlan?username="+name,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {

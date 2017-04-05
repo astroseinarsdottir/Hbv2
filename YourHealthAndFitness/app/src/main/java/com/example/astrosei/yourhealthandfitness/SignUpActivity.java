@@ -183,17 +183,12 @@ public class SignUpActivity extends AppCompatActivity implements UserNetworker.r
         registerInfo.put("goal",goal);
         registerInfo.put("gender",gender);
 
-        userNetworker.stringrequest(registerInfo);
+        userNetworker.checkIfValid(registerInfo);
 
         // Check if username is available
         // Enter user into database
 
-        //If sign up successful.
-        Toast.makeText(getApplicationContext(),"Redirecting...",Toast.LENGTH_SHORT).show();
 
-        // Redirect user to Homepage.
-        Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
-        startActivity(intent);
     }
     public void checkSignUpSuccess(String response){
 

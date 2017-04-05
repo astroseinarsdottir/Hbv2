@@ -40,7 +40,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://192.168.122.1:8080//mobile_login";  //!!!
+    String solviUrl = "http://130.208.151.228:8181//mobile_login";  //!!!
 
 
     public interface loginCallback{
@@ -117,7 +117,7 @@ public class UserNetworker extends AppCompatActivity {
     public void getUserProfileInfo(String username) {
 
 
-        JsonArrayRequest req = new JsonArrayRequest("http://192.168.1.138:8181//mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_myProfile?username="+username,
 
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -140,7 +140,7 @@ public class UserNetworker extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-        public void stringrequest(final HashMap<String,String> registerInfo){
+        public void stringrequest(HashMap<String,String> registerInfo){
 
             JSONObject jsonBody = new JSONObject(registerInfo);
             final String requestBody = jsonBody.toString();
@@ -149,7 +149,6 @@ public class UserNetworker extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     Log.i("VOLLEY", response);
-                    System.out.print("-------DDDD----"+check[0]);
                     signUpActivity.checkSignUpSuccess(check[0]);
 
                 }
@@ -188,7 +187,47 @@ public class UserNetworker extends AppCompatActivity {
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
             };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             AppController.getInstance().addToRequestQueue(stringRequest);
         }
+
+    public void checkIfValid(final HashMap<String,String> auth) {
+        String username = auth.get("username");
+        String name = auth.get("name");
+        String email = auth.get("email");
+        String password = auth.get("password");
+        String age = auth.get("age");
+        String weight = auth.get("weight");
+
+        final JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_checkIfValid?username="+username+"&name="+name+"&email="+email+
+                "&password="+password+"&age="+age+"&weight="+weight,
+
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+                        try {
+                            if(response.get(0).equals("true")) {
+                                System.out.println("erum ad auda");
+                                stringrequest(auth);
+                            }
+                            else System.out.print("-------ubs-------");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //Toast.makeText(getApplicationContext(),
+                // error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        req.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+    }
 
 }

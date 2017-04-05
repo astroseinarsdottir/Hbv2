@@ -42,7 +42,7 @@ public class ProgramNetworker {
 
     public void getCurrentCycleRequest(String username, final String date) {
 
-        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_currentCycle?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_currentCycle?username="+username,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
