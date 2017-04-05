@@ -19,9 +19,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import networker.UpdateProfileNetworker;
 import sessions.SessionManager;
 
-public class UpdateProfileActivity extends AppCompatActivity {
+
+
+public class UpdateProfileActivity extends AppCompatActivity implements UpdateProfileNetworker.setupdateMyProfileTextCallBack {
 
     // For navigation toolbar
     private DrawerLayout drawerLayout;
@@ -35,7 +44,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private EditText textWeight;
     private TextView textView_Info;
     private Button btn_EditProfile;
-
+    UpdateProfileNetworker updateProfileNetworker = new UpdateProfileNetworker(this);
     private ArrayAdapter<String> goalAdapter;
     private String[] goals;
     SessionManager session;
@@ -54,7 +63,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         btn_EditProfile = (Button)findViewById(R.id.btn_EditProfile);
         textView_Info = (TextView)findViewById(R.id.textView_Info);
 
-        goals = new String[]{"Stronger","Buffer", "Leaner"};
+        goals = new String[]{"stronger","buffer", "leaner"};
 
         // Create an ArrayAdapter and add the list of goals to it.
         goalAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goals);
@@ -73,6 +82,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
         textAge.setText("22");
         textWeight.setText("55.5");
         spinnerGoal.setSelection(1);
+
+        session = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String username = user.get(SessionManager.KEY_NAME);
 
         // Do something when a goal is chosen.
         spinnerGoal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -131,6 +144,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
             }
         });
+        updateProfileNetworker.getUserProfileInfo(username);
 
         // User wants to update information. Redirected to profile when done
         btn_EditProfile.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +153,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                 updateProfile();
                 // Redirect
-                Intent intent = new Intent(UpdateProfileActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(UpdateProfileActivity.this, HomePageActivity.class);
                 startActivity(intent);
             }
         });
@@ -155,9 +169,46 @@ public class UpdateProfileActivity extends AppCompatActivity {
     // Get info from view and put it into database
     public void updateProfile(){
 
+        session = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String username = user.get(SessionManager.KEY_NAME);
+
         String age = textAge.getText().toString();
         String weight = textWeight.getText().toString();
         String goal = spinnerGoal.getSelectedItem().toString();
+        HashMap<String ,String> updateInfo = new HashMap<String ,String>();
+        updateInfo.put("username",username);
+        updateInfo.put("age",age);
+        updateInfo.put("weight",weight);
+        updateInfo.put("goal",goal);
+        updateProfileNetworker.updateUser(updateInfo);
 
+    }
+
+
+    public void setupdateProfileText(JSONArray userAray) {
+        ArrayList<String> listdata = new ArrayList<String>();
+        if (userAray != null) {
+            for (int i=0;i<userAray.length();i++){
+                try {
+                    listdata.add(userAray.getString(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        textAge.setText(listdata.get(3));
+        textWeight.setText(listdata.get(5));
+        int index = 0;
+        String goal = listdata.get(1);
+        if(goal.equals("buffer")){
+            index = 1;
+        }
+        if(goal.equals("leaner")){
+            index = 2;
+        }
+        spinnerGoal.setSelection(index);
+        String date = listdata.get(6);
+        textView_Info.setText("If the goal is changed then you will get a new program on "+date);
     }
 }

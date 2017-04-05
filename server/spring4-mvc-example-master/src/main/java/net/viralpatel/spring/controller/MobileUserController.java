@@ -74,7 +74,6 @@ public class MobileUserController extends HttpServlet{
 		//Redirects to homepage
 		else{
 			ob.add("Succesfull");
-			System.out.print("------CHECKS__IF__SUCCESS");
 			return ob;
 		}
 		
@@ -185,20 +184,25 @@ public class MobileUserController extends HttpServlet{
 	}
 	//Updates user informaition
 	@RequestMapping(value = "mobile_updateUser", method = RequestMethod.POST)
-	public @ResponseBody boolean updateUserPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> updateUser){
+	public @ResponseBody String updateUserPost(HttpServletRequest request, HttpSession session, @RequestBody HashMap<String,String> updateUser){
 
-		
-		String username = (String)session.getAttribute("username");
+		System.out.println("-----UPDATE----------");
+		String username = updateUser.get("username");
 		String goal = updateUser.get("goal");
 		int age	 = Integer.parseInt(updateUser.get("age"));
 		String weight = updateUser.get("weight");
+
+		System.out.println(username);
+		System.out.println(goal);
+		System.out.println(age);
+		System.out.println(weight);
 
 		//Changes user info in database
 		User user = new User(null,null,null,age,username,goal,null,Double.parseDouble(weight),null);
 
 		userService.updateUser(user);
 
-		return true;
+		return "true";
 	}
 	//Logs out user
 	@RequestMapping(value = "mobile_logout", method = RequestMethod.GET)

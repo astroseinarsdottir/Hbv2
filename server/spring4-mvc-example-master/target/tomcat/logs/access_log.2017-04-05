@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 192.168.122.1 - - [05/Apr/2017:15:52:55 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-1 946
 192.168.122.1 - - [05/Apr/2017:15:53:01 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8080-exec-2 72
 192.168.122.1 - - [05/Apr/2017:15:53:02 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8080-exec-3 28
@@ -123,3 +124,34 @@
 192.168.122.1 - - [05/Apr/2017:19:52:48 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-5 38
 192.168.122.1 - - [05/Apr/2017:19:53:53 +0000] "GET //mobile_login?un=solvimar&pw=1234567 HTTP/1.1" 200 5 http-bio-8080-exec-9 240
 192.168.122.1 - - [05/Apr/2017:19:54:19 +0000] "GET //mobile_login?un=solmi&pw=123456 HTTP/1.1" 200 5 http-bio-8080-exec-9 6
+=======
+130.208.151.228 - - [05/Apr/2017:17:20:57 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-1 1844
+130.208.151.228 - - [05/Apr/2017:17:20:59 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-3 188
+130.208.151.228 - - [05/Apr/2017:17:21:08 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-4 21
+130.208.151.228 - - [05/Apr/2017:17:21:09 +0000] "POST /mobile_updateUser HTTP/1.1" 200 4 http-bio-8181-exec-2 610
+130.208.151.228 - - [05/Apr/2017:17:21:19 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-5 26
+130.208.151.228 - - [05/Apr/2017:17:27:59 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-8 193
+130.208.151.228 - - [05/Apr/2017:17:28:01 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-9 23
+130.208.151.228 - - [05/Apr/2017:17:28:10 +0000] "POST /mobile_updateUser HTTP/1.1" 200 4 http-bio-8181-exec-10 106
+130.208.151.228 - - [05/Apr/2017:17:28:13 +0000] "GET /mobile_myProfile?username=solmi HTTP/1.1" 200 77 http-bio-8181-exec-10 34
+130.208.151.228 - - [05/Apr/2017:17:28:23 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-10 382
+130.208.151.228 - - [05/Apr/2017:17:28:47 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-10 48
+130.208.151.228 - - [05/Apr/2017:17:28:49 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-10 45
+130.208.151.228 - - [05/Apr/2017:17:28:54 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-10 47
+130.208.151.228 - - [05/Apr/2017:17:29:08 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-10 56
+130.208.151.228 - - [05/Apr/2017:17:29:42 +0000] "GET //mobile_login?un=sol&pw=solsol HTTP/1.1" 200 4 http-bio-8181-exec-10 840
+130.208.151.228 - - [05/Apr/2017:17:29:45 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8181-exec-8 53
+130.208.151.228 - - [05/Apr/2017:17:29:50 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8181-exec-8 110
+130.208.151.228 - - [05/Apr/2017:17:29:52 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8181-exec-1 48
+130.208.151.228 - - [05/Apr/2017:17:30:55 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8181-exec-4 157
+130.208.151.228 - - [05/Apr/2017:17:31:13 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8181-exec-5 53
+130.208.151.228 - - [05/Apr/2017:17:31:23 +0000] "GET /mobile_currentCycle?username=sol HTTP/1.1" 200 3978 http-bio-8181-exec-5 53
+130.208.151.228 - - [05/Apr/2017:17:31:44 +0000] "GET //mobile_login?un=solmi&pw=123456 HTTP/1.1" 200 4 http-bio-8181-exec-5 118
+130.208.151.228 - - [05/Apr/2017:17:31:47 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-5 60
+130.208.151.228 - - [05/Apr/2017:17:32:00 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-9 119
+130.208.151.228 - - [05/Apr/2017:17:32:03 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-8 48
+130.208.151.228 - - [05/Apr/2017:17:32:05 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-8 31
+130.208.151.228 - - [05/Apr/2017:17:32:11 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-8 48
+130.208.151.228 - - [05/Apr/2017:17:32:14 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-8 36
+130.208.151.228 - - [05/Apr/2017:17:32:17 +0000] "GET /mobile_currentCycle?username=solmi HTTP/1.1" 200 3882 http-bio-8181-exec-8 78
+>>>>>>> 5c3d88f932f8d1fec74ffc5db233dd45c92688e0
