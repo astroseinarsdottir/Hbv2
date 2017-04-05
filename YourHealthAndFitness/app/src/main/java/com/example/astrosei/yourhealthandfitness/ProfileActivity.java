@@ -109,6 +109,8 @@ public class ProfileActivity extends AppCompatActivity implements UserNetworker.
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         intent = new Intent(ProfileActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);

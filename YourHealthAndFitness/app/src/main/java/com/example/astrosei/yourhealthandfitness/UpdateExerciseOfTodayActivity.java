@@ -128,6 +128,8 @@ public class UpdateExerciseOfTodayActivity extends AppCompatActivity implements 
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         intent = new Intent(UpdateExerciseOfTodayActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);

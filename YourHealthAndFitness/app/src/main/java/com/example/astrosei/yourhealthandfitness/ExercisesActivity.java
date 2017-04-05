@@ -91,6 +91,8 @@ public class ExercisesActivity extends AppCompatActivity implements WorkoutNetwo
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         intent = new Intent(ExercisesActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);

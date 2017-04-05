@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import sessions.SessionManager;
+
 public class UpdateProfileActivity extends AppCompatActivity {
 
     // For navigation toolbar
@@ -36,7 +38,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> goalAdapter;
     private String[] goals;
-
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +119,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         intent = new Intent(UpdateProfileActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);

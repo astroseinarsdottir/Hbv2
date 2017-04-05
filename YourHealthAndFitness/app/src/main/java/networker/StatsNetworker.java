@@ -28,39 +28,29 @@ public class StatsNetworker extends AppCompatActivity {
     private static String TAG = StatsNetworker.class.getSimpleName();
 
     public interface statsCallback{
-        void getStats(HashMap<String,String> response);
+        void getStats(JSONArray statsArray);
     }
 
     private statsCallback progressActivity;
+
     public StatsNetworker(Activity activity){
         progressActivity = (statsCallback) activity;
     }
 
     public void getStatistics(String username, String goal) {
-        int id = 1;
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_stats?username="+username+"&id="+id+"&goal="+goal,
+        String id = "1";
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_stats?username="+username+"&id="+id+"&goal="+goal,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
-                        HashMap<String,String> stats = new HashMap<String, String>();
-                        for (int i = 0; i < response.length(); i++) {
 
-                            JSONObject jobject = null;
-                            try {
-                                jobject = (JSONObject) response.get(i);
-                                String date = jobject.getString("date");
-                                String average = jobject.getString("average");
-                                stats.put(date,average);
+                        JSONArray statsArray = response;
+                        progressActivity.getStats(statsArray);
 
-                            }
-                            catch (JSONException e) {
-                                e.printStackTrace();
-                            }
 
-                        }
 
-                        progressActivity.getStats(stats);
+                        //progressActivity.getStats(stats);
                     }
                 }, new Response.ErrorListener() {
             @Override

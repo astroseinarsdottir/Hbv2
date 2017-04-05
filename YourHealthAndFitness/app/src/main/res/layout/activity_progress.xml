@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.astrosei.yourhealthandfitness.ProgressActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             layout="@layout/toolbar_layout"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/main_container"
@@ -28,15 +28,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Progress"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:id="@+id/textView4" />
             <Button
-                android:text="Button"
+                android:text="Visualize your progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/vizutest" />
-        </LinearLayout>
+                android:id="@+id/vizutest"
+                android:layout_below="@+id/fackmeid"/>
+            <TextView
+                android:layout_width="400dp"
+                android:layout_height="450dp"
 
-    </LinearLayout>
+                android:id="@+id/fackmeid"
+                android:layout_below="@+id/textView4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="30dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"

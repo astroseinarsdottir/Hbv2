@@ -40,7 +40,7 @@ public class UserNetworker extends AppCompatActivity {
     //private TextView txtResponse;
 
 
-    String solviUrl = "http://130.208.151.228:8181//mobile_login";  //!!!
+    String solviUrl = "http://192.168.122.1:8080//mobile_login";  //!!!
 
 
     public interface loginCallback{
@@ -117,7 +117,7 @@ public class UserNetworker extends AppCompatActivity {
     public void getUserProfileInfo(String username) {
 
 
-        JsonArrayRequest req = new JsonArrayRequest("http://130.208.151.228:8181/mobile_myProfile?username="+username,
+        JsonArrayRequest req = new JsonArrayRequest("http://192.168.122.1:8080/mobile_myProfile?username="+username,
 
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -145,7 +145,7 @@ public class UserNetworker extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject(registerInfo);
             final String requestBody = jsonBody.toString();
             final String[] check = {null};
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://130.208.151.228:8181/mobile_register", new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.122.1:8080/mobile_register", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.i("VOLLEY", response);

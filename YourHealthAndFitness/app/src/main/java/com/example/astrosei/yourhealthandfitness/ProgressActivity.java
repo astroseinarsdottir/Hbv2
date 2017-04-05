@@ -9,13 +9,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
 import networker.StatsNetworker;
+import sessions.SessionManager;
 
 public class ProgressActivity extends AppCompatActivity implements StatsNetworker.statsCallback{
 
@@ -26,19 +34,24 @@ public class ProgressActivity extends AppCompatActivity implements StatsNetworke
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Button vizutest;
     StatsNetworker statsNetworker = new StatsNetworker(this);
-
+    SessionManager session;
+    private TextView textView;
+    private String JSONRESOPNSE;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("sol","sol");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
-
+        textView = (TextView) findViewById(R.id.fackmeid);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
         vizutest = (Button)findViewById(R.id.vizutest);
         String username = "sol";
         String goal = "stronger";
-        statsNetworker.getStatistics(username,goal);
+        //statsNetworker.getStatistics(username,goal);
+        statsNetworker.getStatistics("sol","stronger");
         // Set our special toolbar as the action bar.
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Progress");
@@ -66,6 +79,8 @@ public class ProgressActivity extends AppCompatActivity implements StatsNetworke
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         intent = new Intent(ProgressActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);
@@ -93,7 +108,24 @@ public class ProgressActivity extends AppCompatActivity implements StatsNetworke
         actionBarDrawerToggle.syncState();
     }
 
-    public void getStats(HashMap<String,String> response) {
+    public void getStats(JSONArray statsArray) {
+        JSONRESOPNSE = "";
+        for(int i = 0; i<statsArray.length(); i++){
+            try{
+                JSONObject statsObject = (JSONObject) statsArray.get(i);
+                String date = statsObject.getString("date");
+                String average = statsObject.getString("average");
+
+                JSONRESOPNSE += "Date : " + date + "    Average : " + average + "\n\n";
+
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+
+        }
+
+        textView.setText(JSONRESOPNSE);
 
     }
 

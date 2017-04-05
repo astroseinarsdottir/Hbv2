@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import sessions.SessionManager;
+
 public class ExercisesTutorialActivity extends AppCompatActivity {
 
     // For navigation toolbar
@@ -18,7 +20,7 @@ public class ExercisesTutorialActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class ExercisesTutorialActivity extends AppCompatActivity {
 
                     case R.id.logout_id:
                         // Logout user, not fully implemented.
+                        session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
                         intent = new Intent(ExercisesTutorialActivity.this, IndexActivity.class);
                         startActivity(intent);
                         item.setChecked(true);
