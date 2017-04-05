@@ -119,3 +119,7 @@
 192.168.122.1 - - [05/Apr/2017:19:45:52 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-1 45
 192.168.122.1 - - [05/Apr/2017:19:46:13 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-4 41
 192.168.122.1 - - [05/Apr/2017:19:46:14 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-4 43
+192.168.122.1 - - [05/Apr/2017:19:50:48 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-6 38
+192.168.122.1 - - [05/Apr/2017:19:52:48 +0000] "GET /mobile_stats?username=sol&id=1&goal=stronger HTTP/1.1" 200 214 http-bio-8080-exec-5 38
+192.168.122.1 - - [05/Apr/2017:19:53:53 +0000] "GET //mobile_login?un=solvimar&pw=1234567 HTTP/1.1" 200 5 http-bio-8080-exec-9 240
+192.168.122.1 - - [05/Apr/2017:19:54:19 +0000] "GET //mobile_login?un=solmi&pw=123456 HTTP/1.1" 200 5 http-bio-8080-exec-9 6
