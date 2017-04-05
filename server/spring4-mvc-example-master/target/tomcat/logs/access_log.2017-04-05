@@ -1,5 +1,12 @@
-130.208.151.228 - - [05/Apr/2017:15:31:57 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@comi.com&password=123456&age=26&weight=99 HTTP/1.1" 200 18 http-bio-8181-exec-1 948
-130.208.151.228 - - [05/Apr/2017:15:35:59 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 18 http-bio-8181-exec-3 201
-130.208.151.228 - - [05/Apr/2017:15:36:01 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-4 1471
-130.208.151.228 - - [05/Apr/2017:15:36:06 +0000] "GET /mobile_myProfile?username=auli HTTP/1.1" 200 75 http-bio-8181-exec-5 173
-130.208.151.228 - - [05/Apr/2017:15:37:11 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-7 69
+130.208.151.228 - - [05/Apr/2017:15:46:31 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=aulo@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-1 397
+130.208.151.228 - - [05/Apr/2017:15:47:43 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-3 63
+130.208.151.228 - - [05/Apr/2017:15:51:22 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-5 211
+130.208.151.228 - - [05/Apr/2017:15:55:34 +0000] "GET /mobile_checkIfValid?username=auli&name=auli&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-7 203
+130.208.151.228 - - [05/Apr/2017:15:55:59 +0000] "GET /mobile_checkIfValid?username=solmi&name=solvi&email=auli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 24 http-bio-8181-exec-8 22
+130.208.151.228 - - [05/Apr/2017:15:57:00 +0000] "GET //mobile_login?un=solmi&pw=123456 HTTP/1.1" 200 5 http-bio-8181-exec-10 56
+130.208.151.228 - - [05/Apr/2017:15:58:24 +0000] "GET /mobile_checkIfValid?username=solmi&name=solmi&email=solm@guii.ocm&password=123456&age=26&weight=99 HTTP/1.1" 200 24 http-bio-8181-exec-2 88
+130.208.151.228 - - [05/Apr/2017:16:01:03 +0000] "GET /mobile_checkIfValid?username=auli&name=solmi&email=alli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-4 162
+130.208.151.228 - - [05/Apr/2017:16:01:16 +0000] "GET /mobile_checkIfValid?username=solmi&name=solmi&email=alli@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 24 http-bio-8181-exec-5 34
+130.208.151.228 - - [05/Apr/2017:16:03:52 +0000] "GET /mobile_checkIfValid?username=auli&name=solmi&email=solmi@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 31 http-bio-8181-exec-7 152
+130.208.151.228 - - [05/Apr/2017:16:04:01 +0000] "GET /mobile_checkIfValid?username=solmi&name=solmi&email=solmi@gmail.com&password=123456&age=26&weight=99 HTTP/1.1" 200 24 http-bio-8181-exec-7 33
+130.208.151.228 - - [05/Apr/2017:16:04:03 +0000] "POST /mobile_register HTTP/1.1" 200 4 http-bio-8181-exec-7 1717

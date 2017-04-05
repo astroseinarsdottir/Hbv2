@@ -12,17 +12,17 @@ import org.json.JSONArray;
 
 import comunicator.AppController;
 
-public class ProfileNetworker {
+public class UpdateProfileNetworker {
     private static String TAG = UserNetworker.class.getSimpleName();
     //private TextView txtResponse;
 
     public interface setMyPrifileTextCallBack{
         void setProfileText(JSONArray userArray);
     }
-    private ProfileNetworker.setMyPrifileTextCallBack profileActivity;
+    private UpdateProfileNetworker.setMyPrifileTextCallBack profileActivity;
 
-    public ProfileNetworker(Activity activity){
-        profileActivity = (ProfileNetworker.setMyPrifileTextCallBack)activity;
+    public UpdateProfileNetworker(Activity activity){
+        profileActivity = (UpdateProfileNetworker.setMyPrifileTextCallBack)activity;
     }
 
 

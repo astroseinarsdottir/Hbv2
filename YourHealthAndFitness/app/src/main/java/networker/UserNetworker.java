@@ -139,8 +139,8 @@ public class UserNetworker extends AppCompatActivity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(req);
     }
-
-        public void stringrequest(HashMap<String,String> registerInfo){
+        //New user created
+        public void register(HashMap<String,String> registerInfo){
 
             JSONObject jsonBody = new JSONObject(registerInfo);
             final String requestBody = jsonBody.toString();
@@ -190,7 +190,7 @@ public class UserNetworker extends AppCompatActivity {
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             AppController.getInstance().addToRequestQueue(stringRequest);
         }
-
+    //Checks if a new user creates valid credentials
     public void checkIfValid(final HashMap<String,String> auth) {
         String username = auth.get("username");
         String name = auth.get("name");
@@ -206,10 +206,11 @@ public class UserNetworker extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
+
                         try {
-                            if(response.get(0).equals("true")) {
-                                System.out.println("erum ad auda");
-                                stringrequest(auth);
+                            if(response.get(0).equals("Succesfull")) {
+
+                                register(auth);
                             }
                             else System.out.print("-------ubs-------");
                         } catch (JSONException e) {
